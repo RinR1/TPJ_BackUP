@@ -42,13 +42,14 @@ public class PlayerController : MonoBehaviour
     private float cameraRotationLimite;
     private float cameraCurrentRotationX = 0f;
 
+    // 필요 컴포넌트
     [SerializeField]
     private Camera c_mine;
-
     private Rigidbody m_rigid;
     private CapsuleCollider cap_collider;
     private GunController gunController;
     private Crosshair cro_mine;
+    private Status st_mine;
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +58,7 @@ public class PlayerController : MonoBehaviour
         m_rigid = GetComponent<Rigidbody>();
         gunController = FindObjectOfType<GunController>();
         cro_mine = FindObjectOfType<Crosshair>();
+        st_mine = FindObjectOfType<Status>();
 
         applySpeed = walkSpeed;
         originPosY = c_mine.transform.localPosition.y;
@@ -99,6 +101,7 @@ public class PlayerController : MonoBehaviour
             Crouch();
         }
 
+        st_mine.DecreaseSp(100);
         m_rigid.velocity = transform.up * jumpForce;
     }
 
@@ -127,6 +130,7 @@ public class PlayerController : MonoBehaviour
 
         runCheck = true;
         cro_mine.RunningAnimation(runCheck);
+        st_mine.DecreaseSp(10);
         applySpeed = runSpeed;
     }
 
