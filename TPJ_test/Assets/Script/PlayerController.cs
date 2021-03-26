@@ -108,13 +108,16 @@ public class PlayerController : MonoBehaviour
     // 캐릭터 달리기 체크
     private void TryRun()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (!crouchCheck)
         {
-            Running();
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            RunningCancle();
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                Running();
+            }
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                RunningCancle();
+            }
         }
     }
 
