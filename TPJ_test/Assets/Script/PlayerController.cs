@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour
 
         runCheck = true;
         cro_mine.RunningAnimation(runCheck);
-        st_mine.DecreaseSp(10);
+        st_mine.DecreaseSp(3);
         applySpeed = runSpeed;
     }
 

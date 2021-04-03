@@ -40,7 +40,7 @@ public class Status : MonoBehaviour
     [SerializeField]
     private Image[] statusGauge;
 
-    private const int Water = 0, MRE = 1; // HP = 2, SP = 3
+    private const int HP = 0, SP = 1, Water = 2, MRE = 3;
 
     private bool spUsed;
 
@@ -62,6 +62,29 @@ public class Status : MonoBehaviour
         SpRechargingTime();
         SpRecover();
         GaugeUpdate();
+    }
+
+    private void SpRechargingTime()
+    {
+        if (spUsed)
+        {
+            if (currentSpIncreaseDelay < spIncreaseDelay)
+            {
+                currentSpIncreaseDelay++;
+            }
+            else
+            {
+                spUsed = false;
+            }
+        }
+    }
+
+    private void SpRecover()
+    {
+        if (!spUsed && currentSp < sp)
+        {
+            currentSp += spIncreaseSpeed;
+        }
     }
 
     private void Hungry()
@@ -102,33 +125,10 @@ public class Status : MonoBehaviour
 
     private void GaugeUpdate()
     {
-        //statusGauge[HP].fillAmount = (float)currentHp / hp;
-        //statusGauge[SP].fillAmount = (float)currentSp / sp;
+        statusGauge[HP].fillAmount = (float)currentHp / hp;
+        statusGauge[SP].fillAmount = (float)currentSp / sp;
         statusGauge[Water].fillAmount = (float)currentWater / water;
         statusGauge[MRE].fillAmount = (float)currentMRE / mre;
-    }
-
-    private void SpRechargingTime()
-    {
-        if (spUsed)
-        {
-            if(currentSpIncreaseDelay < spIncreaseDelay)
-            {
-                currentSpIncreaseDelay ++;
-            }
-            else
-            {
-                spUsed = false;
-            }
-        }
-    }
-
-    private void SpRecover()
-    {
-        if (!spUsed && currentSp > sp)
-        {
-            currentSp += spIncreaseSpeed;
-        }
     }
 
     public void DecreaseSp(int _count)
