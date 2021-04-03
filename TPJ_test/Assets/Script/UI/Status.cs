@@ -44,7 +44,6 @@ public class Status : MonoBehaviour
 
     private bool spUsed;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -102,7 +101,7 @@ public class Status : MonoBehaviour
             }
         }
         else
-            Debug.Log("허기짐이 0이 되었다");
+            Debug.Log("허기가 0이 되었다");
     }
 
     private void Thirsty()
@@ -131,6 +130,60 @@ public class Status : MonoBehaviour
         statusGauge[MRE].fillAmount = (float)currentMRE / mre;
     }
 
+    public void IncreaseHP(int _count)
+    {
+        if(currentHp + _count < hp)
+        {
+            currentHp += _count;
+        }
+        else
+        {
+            currentHp = hp;
+        }
+    }
+
+    public void DecreaseHP(int _count)
+    {
+        if(currentHp - _count < 0)
+        {
+            currentHp = 0;
+        }
+        else
+        {
+            currentHp -= _count;
+        }
+        
+
+        if(currentHp <= 0)
+        {
+            Debug.Log("캐릭터 사망");
+        }
+    }
+
+    public void IncreaseMRE(int _count)
+    {
+        if (currentMRE + _count < mre)
+        {
+            currentMRE += _count;
+        }
+        else
+        {
+            currentMRE = mre;
+        }
+    }
+
+    public void IncreaseWater(int _count)
+    {
+        if (currentWater + _count < water)
+        {
+            currentWater += _count;
+        }
+        else
+        {
+            currentWater = water;
+        }
+    }
+
     public void DecreaseSp(int _count)
     {
         spUsed = true;
@@ -144,5 +197,10 @@ public class Status : MonoBehaviour
         {
             currentSp = 0;
         }
+    }
+
+    public int GetCurrentSP()
+    {
+        return currentSp;
     }
 }

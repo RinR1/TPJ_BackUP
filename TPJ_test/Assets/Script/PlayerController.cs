@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     // 캐릭터 점프 체크
     private void TryJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCheck)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCheck && st_mine.GetCurrentSP() > 0)
         {
             Jump();
         }
@@ -110,11 +110,11 @@ public class PlayerController : MonoBehaviour
     {
         if (!crouchCheck)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift) && st_mine.GetCurrentSP() > 0)
             {
                 Running();
             }
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+            if (Input.GetKeyUp(KeyCode.LeftShift) || st_mine.GetCurrentSP() <= 0)
             {
                 RunningCancle();
             }
