@@ -25,7 +25,11 @@ public class GunController : MonoBehaviour
 
     [SerializeField]
     private Camera hitCam;
+
     private Crosshair cro_mine;
+
+    [SerializeField]
+    private GameObject hit_Effect; // 피격 이펙트
 
     // Start is called before the first frame update
     void Start()
@@ -101,6 +105,8 @@ public class GunController : MonoBehaviour
             , out hitInfo, currentGunManager.range))
         {
             Debug.Log(hitInfo.transform.name);
+            GameObject cloan  = Instantiate(hit_Effect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+            Destroy(cloan, 0.5f);
         }
     }
 
