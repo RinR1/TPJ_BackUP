@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Robot : MonoBehaviour
 {
@@ -19,24 +20,24 @@ public class Robot : MonoBehaviour
     private bool running; // 달리기 체크
     private bool actionCheck; // 행동 체크
 
-    [SerializeField] private Animator anim;
+    public Animator anim;
     [SerializeField] private Rigidbody rigid;
     [SerializeField] private CapsuleCollider capCol;
 
-    private Vector3 direction;
+    private Vector3 destination;
+    private NavMeshAgent nav;
     // Start is called before the first frame update
     void Start()
     {
         currentTime = idleTime;
         actionCheck = true;
+        nav = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
-        Run();
-        RandomRotation();
         TimeCheck();
     }
 
@@ -52,58 +53,52 @@ public class Robot : MonoBehaviour
 
     private void Move()
     {
-        if (walking)
-            rigid.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
-    }
-
-    private void Run()
-    {
-        if (running)
-            rigid.MovePosition(transform.position + (transform.forward * runSpeed * Time.deltaTime));
-    }
-
-    private void RandomRotation()
-    {
-        if (walking || running)
+        if(walking || running)
         {
-            Vector3 _rotation = Vector3.Lerp(transform.eulerAngles, direction, 0.01f);
-            rigid.MoveRotation(Quaternion.Euler(_rotation));
+            nav.SetDestination(transform.position + destination * 4f);
         }
     }
 
     private void ResetAction()
     {
         walking = false; actionCheck = true; running = false;
+        nav.speed = walkSpeed;
         anim.SetBool("Walk", walking);
         anim.SetBool("Run", running);
-        direction.Set(0f, Random.Range(0f, 360f), 0f);
+        nav.ResetPath();
+        destination.Set(Random.Range(-0.2f, 0.2f), 0f, Random.Range(-0.5f, 1f));
         RandomAction();
     }
 
     private void RandomAction()
     {
         actionCheck = true;
-        int _random = Random.Range(0, 3);
 
-        if (_random == 0)
+        int _random = Random.Range(0, 2);
+
+        if(_random == 0)
+        {
             TryIdle();
-        else if(_random == 1)
-            TryWalk();
+        }
         else
-            TryRun();
+        {
+            TryWalk();
+        }
     }
 
-    private void TryIdle()
+    public void TryIdle()
     {
+        walking = false;
+        running = false;
         currentTime = idleTime;
         Debug.Log("대기");
     }
 
-    private void TryRun()
+    public void TryRun(Vector3 _targetPos)
     {
+        destination = new Vector3(_targetPos.x - transform.position.x, 0f, _targetPos.z - transform.position.z);
         running = true;
         anim.SetBool("Run", running);
-        currentTime = walkTime;
         Debug.Log("러쉬");
     }
 

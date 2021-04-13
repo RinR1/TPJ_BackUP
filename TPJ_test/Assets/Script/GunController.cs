@@ -22,6 +22,7 @@ public class GunController : MonoBehaviour
     private AudioSource audioSource;
 
     private RaycastHit hitInfo;
+    [SerializeField] LayerMask layerMask;
 
     [SerializeField]
     private Camera hitCam;
@@ -102,7 +103,7 @@ public class GunController : MonoBehaviour
             new Vector3(Random.Range(-cro_mine.GunAccuracy() - currentGunManager.accuracy, cro_mine.GunAccuracy() + currentGunManager.accuracy),
                         Random.Range(-cro_mine.GunAccuracy() - currentGunManager.accuracy, cro_mine.GunAccuracy() + currentGunManager.accuracy),
                         0)
-            , out hitInfo, currentGunManager.range))
+            , out hitInfo, currentGunManager.range, layerMask))
         {
             Debug.Log(hitInfo.transform.name);
             GameObject cloan  = Instantiate(hit_Effect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
