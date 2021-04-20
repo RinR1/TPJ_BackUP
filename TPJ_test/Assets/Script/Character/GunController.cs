@@ -106,6 +106,12 @@ public class GunController : MonoBehaviour
             , out hitInfo, currentGunManager.range, layerMask))
         {
             Debug.Log(hitInfo.transform.name);
+
+            if (hitInfo.transform.tag == "Enemy")
+            {
+                hitInfo.transform.GetComponent<Robot>().RobotDamage(currentGunManager.gunDamage);
+            }
+
             GameObject cloan  = Instantiate(hit_Effect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             Destroy(cloan, 0.5f);
         }

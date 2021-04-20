@@ -10,7 +10,7 @@ public class GunManager : MonoBehaviour
     public float fireRate; // 연사속도
     public float reloadSpeed; // 재장전 속도
 
-    public int damage;
+    public int gunDamage; // 총기 데미지
 
     public int reloadBulletCount; //총알 재장전 개수
     public int currentBulletCount; //현재 탄장에 남아있는 총알의수

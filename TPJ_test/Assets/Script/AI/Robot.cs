@@ -18,6 +18,7 @@ public class Robot : MonoBehaviour
 
     private bool walking; // 걷기 체크
     private bool running; // 달리기 체크
+    private bool deadCheck; // 로봇 사망여부 확인
     private bool actionCheck; // 행동 체크
 
     public Animator anim;
@@ -37,8 +38,11 @@ public class Robot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-        TimeCheck();
+        if (!deadCheck)
+        {
+            Move();
+            TimeCheck();
+        }
     }
 
     private void TimeCheck()
@@ -108,5 +112,29 @@ public class Robot : MonoBehaviour
         anim.SetBool("Walk", walking);
         currentTime = walkTime;
         Debug.Log("이동");
+    }
+
+    public void RobotDamage(int _dmg)
+    {
+        if (!deadCheck)
+        {
+            robotHp -= _dmg;
+        
+            if(robotHp <= 0)
+            {
+                RobotDead();
+                Debug.Log("사망했습니다");
+            }
+        }
+    }
+
+    private void RobotDead()
+    {
+        walking = false;
+        running = false;
+        deadCheck = true;
+        nav.ResetPath();
+        anim.SetTrigger("Dead");
+        Destroy(this.gameObject, 4f);
     }
 }
