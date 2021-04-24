@@ -8,7 +8,7 @@ public class Status : MonoBehaviour
 
     [SerializeField]
     private int hp; // 최대체력
-    private int currentHp; //현재 체력
+    [SerializeField] private int currentHp; //현재 체력
 
     [SerializeField]
     private int sp; // 최대기력

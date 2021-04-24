@@ -47,7 +47,6 @@ public class FOVRobot : MonoBehaviour
             Transform _targetInfo = _target[i].transform;
             if(_targetInfo.name == "Player")
             {
-
                 Vector3 _direction = (_targetInfo.position - transform.position).normalized;
                 float _angle = Vector3.Angle(_direction, transform.forward);
 
@@ -58,10 +57,21 @@ public class FOVRobot : MonoBehaviour
                     {
                         if (_hit.transform.name == "Player")
                         {
-                            Debug.Log("타겟 포착");
-                            Debug.DrawRay(transform.position + transform.up, _direction, Color.blue);
-                            r_mine.anim.SetBool("Walk", false);
-                            r_mine.TryRun(_hit.transform.position);
+                            if (Vector3.Distance(transform.position, _hit.transform.position) <= 3f)
+                            {
+                                r_mine.nav.isStopped = true;
+                                r_mine.anim.SetBool("Walk", false);
+                                r_mine.anim.SetBool("Run", false);
+                                r_mine.TryAttack();
+                            }
+                            else
+                            {
+                                r_mine.nav.isStopped = false;
+                                Debug.Log("타겟 포착");
+                                Debug.DrawRay(transform.position + transform.up, _direction, Color.blue);
+                                r_mine.anim.SetBool("Walk", false);
+                                r_mine.TryRun(_hit.transform.position);
+                            }
                         }
                     }
                 }

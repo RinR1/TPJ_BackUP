@@ -14,19 +14,29 @@ public class Robot : MonoBehaviour
     [SerializeField] private float walkTime; // 이동 시간
     [SerializeField] private float idleTime; // 대기 시간
 
+    [SerializeField] private float attackDelay; // 로봇 공격 딜레이
+    [SerializeField] private float attackDelayA; // 로봇 공격판정 활성화 시점
+    [SerializeField] private float attackDelayB; // 로봇 공격판정 비활성화 시점
+
+    [SerializeField] private int attackDamage;
+
     private float currentTime;
 
     private bool walking; // 걷기 체크
     private bool running; // 달리기 체크
     private bool deadCheck; // 로봇 사망여부 확인
+    [SerializeField] private bool attackCheck = false; // 로봇 공격여부 체크
     private bool actionCheck; // 행동 체크
 
     public Animator anim;
     [SerializeField] private Rigidbody rigid;
     [SerializeField] private CapsuleCollider capCol;
+    [SerializeField] private BoxCollider boxCol;
 
     private Vector3 destination;
-    private NavMeshAgent nav;
+    [SerializeField] private Status status;
+    public NavMeshAgent nav;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -112,6 +122,38 @@ public class Robot : MonoBehaviour
         anim.SetBool("Walk", walking);
         currentTime = walkTime;
         Debug.Log("이동");
+    }
+
+    public void TryAttack()
+    {
+        if (!attackCheck)
+        {
+            StartCoroutine(AttackCoroutine());
+        }
+    }
+
+    IEnumerator AttackCoroutine()
+    {
+        attackCheck = true;
+        anim.SetTrigger("Close Attack");
+
+        yield return new WaitForSeconds(attackDelayA);
+        boxCol.enabled = true; // 히트박스 활성화
+
+        yield return new WaitForSeconds(attackDelayB);
+        boxCol.enabled = false; // 히트박스 비활성화
+
+        yield return new WaitForSeconds(attackDelay - attackDelayA - attackDelayB);
+        attackCheck = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.transform.name == "Player")
+        {
+            Debug.Log("플레이어 피격");
+            status.DecreaseHP(attackDamage);
+        }
     }
 
     public void RobotDamage(int _dmg)
