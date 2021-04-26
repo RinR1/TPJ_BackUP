@@ -111,6 +111,7 @@ public class Robot : MonoBehaviour
     public void TryRun(Vector3 _targetPos)
     {
         destination = new Vector3(_targetPos.x - transform.position.x, 0f, _targetPos.z - transform.position.z);
+        nav.speed = runSpeed;
         running = true;
         anim.SetBool("Run", running);
         Debug.Log("러쉬");
@@ -145,6 +146,7 @@ public class Robot : MonoBehaviour
 
         yield return new WaitForSeconds(attackDelay - attackDelayA - attackDelayB);
         attackCheck = false;
+        nav.isStopped = false;
     }
 
     private void OnTriggerEnter(Collider other)

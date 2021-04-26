@@ -57,7 +57,7 @@ public class FOVRobot : MonoBehaviour
                     {
                         if (_hit.transform.name == "Player")
                         {
-                            if (Vector3.Distance(transform.position, _hit.transform.position) <= 3f)
+                            if (Vector3.Distance(transform.position, _hit.transform.position) <= 3.3f)
                             {
                                 r_mine.nav.isStopped = true;
                                 r_mine.anim.SetBool("Walk", false);
@@ -66,7 +66,6 @@ public class FOVRobot : MonoBehaviour
                             }
                             else
                             {
-                                r_mine.nav.isStopped = false;
                                 Debug.Log("타겟 포착");
                                 Debug.DrawRay(transform.position + transform.up, _direction, Color.blue);
                                 r_mine.anim.SetBool("Walk", false);

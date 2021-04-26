@@ -22,6 +22,6 @@ public class GunManager : MonoBehaviour
 
     public Vector3 fineSinghtOriginPos; // 정조준시 위치
 
-    public Animator anim;
     public AudioClip fire_sound;
+    public AudioClip reload_sound;
 }

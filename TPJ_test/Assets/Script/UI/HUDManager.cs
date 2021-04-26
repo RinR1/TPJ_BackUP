@@ -16,6 +16,12 @@ public class HUDManager : MonoBehaviour
     [SerializeField]
     private Text[] t_Bullet;
 
+    private void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+    }
     // Update is called once per frame
     void Update()
     {

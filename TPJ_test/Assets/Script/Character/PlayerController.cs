@@ -52,6 +52,15 @@ public class PlayerController : MonoBehaviour
     private Status st_mine;
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        if(FindObjectsOfType<PlayerController>().Length != 1)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
         cap_collider = GetComponent<CapsuleCollider>();

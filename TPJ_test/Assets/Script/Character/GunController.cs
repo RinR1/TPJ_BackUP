@@ -12,7 +12,7 @@ public class GunController : MonoBehaviour
     private float currentFireRate;
 
     // 상태변화 체크
-    private bool reloadCheck = false;
+    [SerializeField] private bool reloadCheck = false;
     private bool fineSightCheck = false;
 
     // 본래 포지션값
@@ -120,9 +120,10 @@ public class GunController : MonoBehaviour
     // 재장전 체크
     private void TryReload()
     {
-        if(Input.GetKeyDown(KeyCode.R) && !reloadCheck && currentGunManager.currentBulletCount < currentGunManager.reloadBulletCount)
+        if(Input.GetKeyDown(KeyCode.R) && !reloadCheck && currentGunManager.currentBulletCount < currentGunManager.reloadBulletCount && currentGunManager.carryBulletCount != 0)
         {
             CancleFineSight();
+            PlaySE(currentGunManager.reload_sound);
             StartCoroutine(ReloadCoroutine());
         }
     }
@@ -144,14 +145,24 @@ public class GunController : MonoBehaviour
             }
             else
             {
-                currentGunManager.currentBulletCount = currentGunManager.carryBulletCount;
-                currentGunManager.carryBulletCount = 0;
+                if(currentGunManager.currentBulletCount + currentGunManager.carryBulletCount >= currentGunManager.reloadBulletCount)
+                {
+                    currentGunManager.carryBulletCount = (currentGunManager.currentBulletCount + currentGunManager.carryBulletCount) - currentGunManager.reloadBulletCount;
+                    currentGunManager.currentBulletCount = currentGunManager.reloadBulletCount;
+                }
+                else
+                {
+                    currentGunManager.currentBulletCount += currentGunManager.carryBulletCount;
+                    currentGunManager.carryBulletCount = 0;
+                }
+
             }
 
             reloadCheck = false;
         }
         else
         {
+            reloadCheck = false;
             Debug.Log("보유한 탄약이 없습니다");
         }
     }
