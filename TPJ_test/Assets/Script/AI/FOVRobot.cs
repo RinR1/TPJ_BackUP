@@ -23,7 +23,10 @@ public class FOVRobot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        View();
+        if (!r_mine.deadCheck)
+        {
+            View();
+        }
     }
     
     private Vector3 BoundaryAngle(float _angle)

@@ -123,7 +123,6 @@ public class GunController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.R) && !reloadCheck && currentGunManager.currentBulletCount < currentGunManager.reloadBulletCount && currentGunManager.carryBulletCount != 0)
         {
             CancleFineSight();
-            PlaySE(currentGunManager.reload_sound);
             StartCoroutine(ReloadCoroutine());
         }
     }
@@ -131,7 +130,8 @@ public class GunController : MonoBehaviour
     // 재장전
     IEnumerator ReloadCoroutine()
     {
-        if(currentGunManager.carryBulletCount > 0)
+        PlaySE(currentGunManager.reload_sound);
+        if (currentGunManager.carryBulletCount > 0)
         {
             reloadCheck = true;
 
@@ -162,7 +162,7 @@ public class GunController : MonoBehaviour
         }
         else
         {
-            reloadCheck = false;
+            reloadCheck = true;
             Debug.Log("보유한 탄약이 없습니다");
         }
     }

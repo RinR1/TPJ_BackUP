@@ -24,8 +24,8 @@ public class Robot : MonoBehaviour
 
     private bool walking; // 걷기 체크
     private bool running; // 달리기 체크
-    private bool deadCheck; // 로봇 사망여부 확인
-    [SerializeField] private bool attackCheck = false; // 로봇 공격여부 체크
+    public bool deadCheck; // 로봇 사망여부 확인
+    private bool attackCheck; // 로봇 공격여부 체크
     private bool actionCheck; // 행동 체크
 
     public Animator anim;
