@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
 
         runCheck = true;
         cro_mine.RunningAnimation(runCheck);
-        st_mine.DecreaseSp(3);
+        st_mine.DecreaseSp(2);
         applySpeed = runSpeed;
     }
 
@@ -235,12 +235,16 @@ public class PlayerController : MonoBehaviour
     // 카메라 상하 회전설정
     private void CameraRotation()
     {
-        float mouseRotationX = Input.GetAxisRaw("Mouse Y");
-        float c_rotationX = mouseRotationX * lookSensitivity;
-        cameraCurrentRotationX -= c_rotationX;
-        cameraCurrentRotationX = Mathf.Clamp(cameraCurrentRotationX, -cameraRotationLimite, cameraRotationLimite); // Clamp를 통한 카메라 시야각 제한
+        if(Time.deltaTime != 0)
+        {
+            float mouseRotationX = Input.GetAxisRaw("Mouse Y");
+            float c_rotationX = mouseRotationX * lookSensitivity;
+            cameraCurrentRotationX -= c_rotationX;
+            cameraCurrentRotationX = Mathf.Clamp(cameraCurrentRotationX, -cameraRotationLimite, cameraRotationLimite); // Clamp를 통한 카메라 시야각 제한
 
-        c_mine.transform.localEulerAngles = new Vector3(cameraCurrentRotationX, 0f, 0f);
+            c_mine.transform.localEulerAngles = new Vector3(cameraCurrentRotationX, 0f, 0f);
+        }
+
     }
 
     // 캐릭터 좌우 회전설정(카메라 좌우)

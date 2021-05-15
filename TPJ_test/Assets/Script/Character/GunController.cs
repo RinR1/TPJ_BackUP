@@ -60,10 +60,14 @@ public class GunController : MonoBehaviour
     //발사 체크
     private void TryFire()
     {
-        if (Input.GetButton("Fire1") && currentFireRate <= 0 && !reloadCheck)
+        if(Time.deltaTime != 0)
         {
-            RoopFire();
+            if (Input.GetButton("Fire1") && currentFireRate <= 0 && !reloadCheck)
+            {
+                RoopFire();
+            }
         }
+
     }
 
     //발사 전 계산

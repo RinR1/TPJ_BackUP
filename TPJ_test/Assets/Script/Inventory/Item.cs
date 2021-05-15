@@ -16,6 +16,7 @@ public class Item : ScriptableObject
     {
         Equipment,
         Used,
+
         Ingredient,
         ETC
     }

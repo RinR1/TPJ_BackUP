@@ -191,7 +191,7 @@ public class Status : MonoBehaviour
 
         if(currentSp - _count > 0)
         {
-            currentSp -= 1;
+            currentSp -= _count;
         }
         else
         {
