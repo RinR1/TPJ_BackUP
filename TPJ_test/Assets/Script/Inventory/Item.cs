@@ -6,6 +6,8 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public string itemName; // 아이템 이름
+    [TextArea]
+    public string itemInfo; // 아이템에 대한 설명
     public ItemType itemType; // 아이템 종류
     public Sprite itemImage; // 아이템 이미지
     public GameObject itemPrefab; // 아이템 프리팹
@@ -16,7 +18,6 @@ public class Item : ScriptableObject
     {
         Equipment,
         Used,
-
         Ingredient,
         ETC
     }

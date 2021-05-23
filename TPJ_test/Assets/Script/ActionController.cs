@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ActionController : MonoBehaviour
 {
+    private float rayRange = 3f; //레이 거리조절
     [SerializeField]
     private float getRange; // 아이템 습득가능 거리
 
@@ -49,16 +50,16 @@ public class ActionController : MonoBehaviour
 
     private void CheckItem()
     {
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hitinfo, layerMask))
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hitinfo, rayRange, layerMask))
         {
             if(hitinfo.transform.tag == "item")
             {
                 ItemInfoAppear();
             }
-            else
-            {
-                ItemInfoDisappear();
-            }
+        }
+        else
+        {
+            ItemInfoDisappear();
         }
     }
 

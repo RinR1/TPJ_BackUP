@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour
+public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
     public Item item; // 획득한 아이템
     public int itemCount; // 아이템 갯수
@@ -11,6 +12,13 @@ public class ItemSlot : MonoBehaviour
 
     [SerializeField]
     private Text t_Count; // 아이템 갯수 표시
+
+    private SlotInfo slotInfo;
+
+    void Start()
+    {
+        slotInfo = FindObjectOfType<SlotInfo>();
+    }
 
     // 이미지 투명도 조절
     private void Setcolor(float _alpha)
@@ -62,5 +70,16 @@ public class ItemSlot : MonoBehaviour
 
         t_Count.text = "0";
         t_Count.gameObject.SetActive(false);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (item != null)
+            {
+                slotInfo.ShowTooltip(item);
+            }
+        }
     }
 }
