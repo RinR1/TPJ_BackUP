@@ -23,6 +23,7 @@ public class Status : MonoBehaviour
 
     [SerializeField]
     private int water; // 최대갈증
+    [SerializeField]
     private int currentWater; // 현재갈증
 
     [SerializeField]

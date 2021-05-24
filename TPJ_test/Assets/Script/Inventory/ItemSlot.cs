@@ -13,10 +13,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private Text t_Count; // 아이템 갯수 표시
 
+    private ItemEffectDataBase itemData;
     private SlotInfo slotInfo;
 
     void Start()
     {
+        itemData = FindObjectOfType<ItemEffectDataBase>();
         slotInfo = FindObjectOfType<SlotInfo>();
     }
 
@@ -74,11 +76,28 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if(eventData.button == PointerEventData.InputButton.Left)
         {
             if (item != null)
             {
                 slotInfo.ShowTooltip(item);
+            }
+        }
+
+        if(eventData.button == PointerEventData.InputButton.Right)
+        {
+            if(item != null)
+            {
+                itemData.UseItem(item);
+
+                if(item.itemType == Item.ItemType.Used)
+                {
+                    SetSlotCount(-1);
+                    if (itemCount <= 0)
+                    {
+                        slotInfo.HideTooltip();
+                    }
+                }
             }
         }
     }
