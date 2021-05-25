@@ -32,6 +32,7 @@ public class GunController : MonoBehaviour
     [SerializeField]
     private GameObject hit_Effect; // 피격 이펙트
 
+    public bool isActive = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,10 +43,13 @@ public class GunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GunFireRateCal();
-        TryFire();
-        TryReload();
-        TryFineSight();
+        if (isActive)
+        {
+            GunFireRateCal();
+            TryFire();
+            TryReload();
+            TryFineSight();
+        }
     }
 
     // 연사속도 재계산

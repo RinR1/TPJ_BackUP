@@ -32,6 +32,7 @@ public class Status : MonoBehaviour
 
     [SerializeField]
     private int mre; // 최대허기
+    [SerializeField]
     private int currentMRE; // 현재 허기
 
    [SerializeField]
@@ -44,6 +45,7 @@ public class Status : MonoBehaviour
     private const int HP = 0, SP = 1, Water = 2, MRE = 3;
 
     private bool spUsed;
+    public bool isActive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -57,11 +59,14 @@ public class Status : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Hungry();
-        Thirsty();
-        SpRechargingTime();
-        SpRecover();
-        GaugeUpdate();
+        if (isActive)
+        {
+            Hungry();
+            Thirsty();
+            SpRechargingTime();
+            SpRecover();
+            GaugeUpdate();
+        }
     }
 
     private void SpRechargingTime()

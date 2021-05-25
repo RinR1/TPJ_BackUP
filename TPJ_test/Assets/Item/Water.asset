@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eca8c5002dba4c44bad46161e7259cb, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  itemName: "\uBB3C"
+  itemName: "\uB9D1\uC740 \uBB3C"
   itemInfo: "\uC544\uC8FC \uAE68\uB057\uD55C \uBB3C"
   itemType: 1
   itemImage: {fileID: 21300000, guid: e45cce3b020a9444fa465d13ef7d2723, type: 3}
