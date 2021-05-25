@@ -6,7 +6,6 @@ using UnityEngine;
 public class ItemEffect
 {
     public string itemName; // 아이템의 이름
-    [Tooltip("HP, Water, MRE 만 가능합니다")]
     public string[] itemPart; // 아이템의 효과 (복수 효과 가능)
     public int[] itemNum; // 아이템 효과수치값
 }
@@ -29,7 +28,6 @@ public class ItemEffectDataBase : MonoBehaviour
         {
 
         }
-
         else if(_item.itemType == Item.ItemType.Used)
         {
             for (int i = 0; i < itemEffect.Length; i++)
@@ -49,12 +47,9 @@ public class ItemEffectDataBase : MonoBehaviour
                             case MRE:
                                 status.IncreaseMRE(itemEffect[i].itemNum[j]);
                                 break;
-                            default:
-                                Debug.Log("적용되지 않았어 ㅅㅂ");
-                                break;
+
                         }
                     }
-                    return;
                 }
             }
         }

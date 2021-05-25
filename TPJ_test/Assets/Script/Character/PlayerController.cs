@@ -51,7 +51,8 @@ public class PlayerController : MonoBehaviour
     private Crosshair cro_mine;
     private Status st_mine;
 
-    public bool isActive = true;
+    // Start is called before the first frame update
+
     private void Awake()
     {
         if(FindObjectsOfType<PlayerController>().Length != 1)
@@ -76,16 +77,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isActive)
-        {
-            JumpCheck();
-            TryJump();
-            TryRun();
-            TryCrouch();
-            PlayerMove();
-            CameraRotation();
-            CharacterRotation();
-        }
+        JumpCheck();
+        TryJump();
+        TryRun();
+        TryCrouch();
+        PlayerMove();
+        CameraRotation();
+        CharacterRotation();
     }
 
     // 지면 접촉 체크

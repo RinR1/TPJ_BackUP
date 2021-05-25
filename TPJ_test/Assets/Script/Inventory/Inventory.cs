@@ -5,20 +5,13 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public static bool InventoryActivated = false; //인벤토리 on&off용
+    public static bool InventoryActivated = false;
 
-    //필요 컴포넌트
+
     [SerializeField]
     private GameObject go_Inventory;
     [SerializeField]
     private GameObject go_SlotParent;
-
-    [SerializeField]
-    private PlayerController playercon;
-    [SerializeField]
-    private GunController guncon;
-    [SerializeField]
-    private Status status;
 
     private ItemSlot[] slots; //아이템 슬롯
 
@@ -45,9 +38,6 @@ public class Inventory : MonoBehaviour
                 Time.timeScale = 0;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
-                playercon.isActive = false;
-                guncon.isActive = false;
-                status.isActive = false;
                 OpenInventory();
             }
             else
@@ -55,9 +45,6 @@ public class Inventory : MonoBehaviour
                 Time.timeScale = 1;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
-                playercon.isActive = true;
-                guncon.isActive = true;
-                status.isActive = true;
                 CloseInventory();
             }
         }

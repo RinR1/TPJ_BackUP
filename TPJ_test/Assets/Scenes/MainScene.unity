@@ -808,7 +808,7 @@ GameObject:
   - component: {fileID: 155268320}
   - component: {fileID: 155268319}
   m_Layer: 0
-  m_Name: DataBase
+  m_Name: ItemDataBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -827,13 +827,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemEffect:
-  - itemName: "\uB9D1\uC740 \uBB3C"
+  - itemName: "\uB9D1\uC740\uBB3C"
     itemPart:
     - Water
-    itemNum: 64000000
-  - itemName: "\uC0DD\uACE0\uAE30"
-    itemPart:
-    - MRE
     itemNum: 64000000
   status: {fileID: 2081060872}
   gunController: {fileID: 2095369664}
@@ -8597,7 +8593,6 @@ MonoBehaviour:
   lookSensitivity: 3
   cameraRotationLimite: 45
   c_mine: {fileID: 1901324494}
-  isActive: 1
 --- !u!54 &1029258494
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15085,9 +15080,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go_Inventory: {fileID: 1093131907}
   go_SlotParent: {fileID: 528077347}
-  playercon: {fileID: 1029258493}
-  guncon: {fileID: 2095369664}
-  status: {fileID: 2081060872}
 --- !u!1 &1787498653 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 60a6d4d8651770d4790a28b1e5f0dc3e,
@@ -18327,20 +18319,18 @@ MonoBehaviour:
   hp: 100
   currentHp: 0
   sp: 1000
-  spIncreaseSpeed: 1
-  spIncreaseDelay: 600
+  spIncreaseSpeed: 2
+  spIncreaseDelay: 500
   water: 1000
   currentWater: 0
   waterDecreaseSpeed: 90
   mre: 1000
-  currentMRE: 0
   mreDecreaseSpeed: 90
   statusGauge:
   - {fileID: 1137310397}
   - {fileID: 1064487656}
   - {fileID: 1846380744}
   - {fileID: 2033929848}
-  isActive: 1
 --- !u!1001 &2086819217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18442,7 +18432,6 @@ MonoBehaviour:
   hitCam: {fileID: 1901324494}
   hit_Effect: {fileID: 6885618187591687057, guid: 89ff7d80435c76342a77cd96f4f1e6d0,
     type: 3}
-  isActive: 1
 --- !u!1 &2112962911
 GameObject:
   m_ObjectHideFlags: 0
