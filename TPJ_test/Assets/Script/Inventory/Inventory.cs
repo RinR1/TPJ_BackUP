@@ -15,6 +15,15 @@ public class Inventory : MonoBehaviour
 
     private ItemSlot[] slots; //아이템 슬롯
 
+    [SerializeField]
+    private PlayerController playCon;
+    [SerializeField]
+    private GunController gunCon;
+    [SerializeField]
+    private Status stat;
+    [SerializeField]
+    private SlotInfo slotInfo;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +47,9 @@ public class Inventory : MonoBehaviour
                 Time.timeScale = 0;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
+                playCon.isActive = false;
+                gunCon.isActive = false;
+                stat.isActive = false;
                 OpenInventory();
             }
             else
@@ -45,6 +57,10 @@ public class Inventory : MonoBehaviour
                 Time.timeScale = 1;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
+                slotInfo.HideTooltip();
+                playCon.isActive = true;
+                gunCon.isActive = true;
+                stat.isActive = true;
                 CloseInventory();
             }
         }

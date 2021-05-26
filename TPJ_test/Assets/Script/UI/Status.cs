@@ -45,6 +45,8 @@ public class Status : MonoBehaviour
 
     private bool spUsed;
 
+    public bool isActive = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,11 +59,14 @@ public class Status : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Hungry();
-        Thirsty();
-        SpRechargingTime();
-        SpRecover();
-        GaugeUpdate();
+        if (isActive)
+        {
+            Hungry();
+            Thirsty();
+            SpRechargingTime();
+            SpRecover();
+            GaugeUpdate();
+        }
     }
 
     private void SpRechargingTime()
