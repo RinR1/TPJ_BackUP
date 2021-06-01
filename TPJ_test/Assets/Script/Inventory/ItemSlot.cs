@@ -4,17 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler
+public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
 {
     public Item item; // 획득한 아이템
     public int itemCount; // 아이템 갯수
     public Image itemImage; // 아이템 이미지
+    public GameObject sp_click; // 선택시 이미지
 
     [SerializeField]
     private Text t_Count; // 아이템 갯수 표시
 
     private ItemEffectDataBase itemData;
     private SlotInfo slotInfo;
+
+    public bool slotClear = false;
 
     void Start()
     {
@@ -68,29 +71,33 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         item = null;
         itemCount = 0;
         itemImage.sprite = null;
+        sp_click.SetActive(false);
         Setcolor(0);
 
         t_Count.text = "0";
         t_Count.gameObject.SetActive(false);
+
+        slotClear = true;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (item != null)
             {
+                sp_click.SetActive(true);
                 slotInfo.ShowTooltip(item);
             }
         }
 
-        if(eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if(item != null)
+            if (item != null)
             {
                 itemData.UseItem(item);
 
-                if(item.itemType == Item.ItemType.Used)
+                if (item.itemType == Item.ItemType.Used)
                 {
                     SetSlotCount(-1);
                     if (itemCount <= 0)
@@ -100,5 +107,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                 }
             }
         }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        sp_click.SetActive(false);
     }
 }

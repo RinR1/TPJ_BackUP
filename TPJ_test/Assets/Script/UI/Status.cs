@@ -32,6 +32,7 @@ public class Status : MonoBehaviour
 
     [SerializeField]
     private int mre; // 최대허기
+    [SerializeField]
     private int currentMRE; // 현재 허기
 
    [SerializeField]
@@ -58,14 +59,16 @@ public class Status : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        GaugeUpdate();
+        
         if (isActive)
         {
             Hungry();
             Thirsty();
             SpRechargingTime();
             SpRecover();
-            GaugeUpdate();
+            
         }
     }
 

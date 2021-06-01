@@ -16,9 +16,13 @@ public class ActionController : MonoBehaviour
     [SerializeField]
     private LayerMask layerMask; // 아이템 레이어 설정
     [SerializeField]
-    private Text actionText;
-    [SerializeField]
     private Inventory inventory;
+    [SerializeField]
+    private Image pickImage;
+    [SerializeField]
+    private Image pickItemImage;
+
+    public Item item;
     // Update is called once per frame
     void Update()
     {
@@ -54,7 +58,8 @@ public class ActionController : MonoBehaviour
         {
             if(hitinfo.transform.tag == "item")
             {
-                ItemInfoAppear();
+                item = hitinfo.transform.GetComponent<ItemPickup>().item;
+                ItemInfoAppear(item);
             }
         }
         else
@@ -63,16 +68,19 @@ public class ActionController : MonoBehaviour
         }
     }
 
-    private void ItemInfoAppear()
+    private void ItemInfoAppear(Item _item)
     {
         pickupActivated = true;
-        actionText.gameObject.SetActive(true);
-        actionText.text = hitinfo.transform.GetComponent<ItemPickup>().item.itemName + "획득" + "<color=yellow>" + "(E)"+"</color>";
+        pickImage.gameObject.SetActive(true);
+        pickItemImage.gameObject.SetActive(true);
+        pickItemImage.sprite = _item.itemImage;
     }
 
     private void ItemInfoDisappear()
     {
         pickupActivated = false;
-        actionText.gameObject.SetActive(false);
+        pickImage.gameObject.SetActive(false);
+        pickItemImage.gameObject.SetActive(false);
+        pickItemImage.sprite = null;
     }
 }

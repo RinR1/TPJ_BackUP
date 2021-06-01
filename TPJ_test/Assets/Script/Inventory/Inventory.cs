@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private GameObject go_SlotParent;
 
-    private ItemSlot[] slots; //아이템 슬롯
+    public ItemSlot[] slots; //아이템 슬롯
 
     [SerializeField]
     private PlayerController playCon;
@@ -100,6 +100,27 @@ public class Inventory : MonoBehaviour
             {
                 slots[i].Additem(_item, _count);
                 return;
+            }
+        }
+    }
+
+    public void SlotRearrange()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+
+            if (slots[i].item == null)
+            {
+                if (slots[i].slotClear == true)
+                {
+                    slots[i].Additem(slots[i + 1].item, slots[i + 1].itemCount);
+
+                    slots[i + 1].SetSlotCount(-1);
+
+                    slots[i].slotClear = false;
+                    Debug.Log("이거 되긴하냐?");
+                }
+
             }
         }
     }

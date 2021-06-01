@@ -22,9 +22,4 @@ public class Item : ScriptableObject
         ETC
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
