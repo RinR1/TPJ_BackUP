@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
+public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public Item item; // 획득한 아이템
     public int itemCount; // 아이템 갯수
@@ -34,7 +34,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
     }
 
     // 아이템 획득
-    public void Additem(Item _item, int _count = 1)
+    public void Additem(Item _item, int _count)
     {
         item = _item;
         itemCount = _count;
@@ -55,9 +55,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
     // 아이템 갯수 조절
     public void SetSlotCount(int _count)
     {
+        t_Count.gameObject.SetActive(true);
         itemCount += _count;
         t_Count.text = "X" + itemCount.ToString();
-        t_Count.gameObject.SetActive(true);
 
         if (itemCount <= 0)
         {
@@ -66,7 +66,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
     }
 
     // 슬롯 초기화
-    private void ClearSlot()
+    public void ClearSlot()
     {
         item = null;
         itemCount = 0;
@@ -78,6 +78,24 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
         t_Count.gameObject.SetActive(false);
 
         slotClear = true;
+    }
+
+
+    public void Useditem()
+    {
+        if (item != null)
+        {
+            itemData.UseItem(item);
+
+            if (item.itemType == Item.ItemType.Used)
+            {
+                SetSlotCount(-1);
+                if (itemCount <= 0)
+                {
+                    slotInfo.HideTooltip();
+                }
+            }
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -93,24 +111,61 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (item != null)
-            {
-                itemData.UseItem(item);
-
-                if (item.itemType == Item.ItemType.Used)
-                {
-                    SetSlotCount(-1);
-                    if (itemCount <= 0)
-                    {
-                        slotInfo.HideTooltip();
-                    }
-                }
-            }
+            Useditem();
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         sp_click.SetActive(false);
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if(item != null)
+        {
+            DragSlot.ds_instance.dragSlot = this;
+            DragSlot.ds_instance.DragSlotImage(itemImage);
+            DragSlot.ds_instance.transform.position = eventData.position;
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (item != null)
+        {
+            DragSlot.ds_instance.transform.position = eventData.position;
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        DragSlot.ds_instance.SetImageColor(0);
+        DragSlot.ds_instance.dragSlot = null;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if(DragSlot.ds_instance.dragSlot != null)
+        {
+            ChangeSlot();
+        }
+    }
+
+    private void ChangeSlot()
+    {
+        Item _tempItem = item;
+        int _tempItemCount = itemCount;
+
+        Additem(DragSlot.ds_instance.dragSlot.item, DragSlot.ds_instance.dragSlot.itemCount);
+
+        if(_tempItem != null)
+        {
+            DragSlot.ds_instance.dragSlot.Additem(_tempItem,_tempItemCount);
+        }
+        else
+        {
+            DragSlot.ds_instance.dragSlot.ClearSlot();
+        }
     }
 }

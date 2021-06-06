@@ -89,6 +89,7 @@ public class Inventory : MonoBehaviour
                         slots[i].SetSlotCount(_count);
                         return;
                     }
+
                 }
             }
         }
@@ -108,19 +109,17 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-
             if (slots[i].item == null)
             {
-                if (slots[i].slotClear == true)
+                if (slots[i].slotClear == true && slots[i+1].item != null)
                 {
-                    slots[i].Additem(slots[i + 1].item, slots[i + 1].itemCount);
-
-                    slots[i + 1].SetSlotCount(-1);
+                    slots[i].Additem(slots[i + 1].item, 1);
+                    slots[i].SetSlotCount(slots[i + 1].itemCount - 1);
+                    slots[i + 1].ClearSlot();
 
                     slots[i].slotClear = false;
                     Debug.Log("이거 되긴하냐?");
                 }
-
             }
         }
     }
