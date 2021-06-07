@@ -5414,12 +5414,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 528077348}
     m_Modifications:
-    - target: {fileID: 2279215874354100254, guid: 8ec95ac2e3e038d41b34ff47b6c9f9f9,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 418fb690b7802834285f2f368bd824fa,
-        type: 3}
     - target: {fileID: 3423249568194197657, guid: 8ec95ac2e3e038d41b34ff47b6c9f9f9,
         type: 3}
       propertyPath: m_Pivot.x
@@ -5525,16 +5519,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5649198289919676944, guid: 8ec95ac2e3e038d41b34ff47b6c9f9f9,
-        type: 3}
-      propertyPath: baseRect
-      value: 
-      objectReference: {fileID: 1093131908}
-    - target: {fileID: 5649198289919676944, guid: 8ec95ac2e3e038d41b34ff47b6c9f9f9,
-        type: 3}
-      propertyPath: quickSlotBaseRect
-      value: 
-      objectReference: {fileID: 429253530}
     - target: {fileID: 7944386672362946681, guid: 8ec95ac2e3e038d41b34ff47b6c9f9f9,
         type: 3}
       propertyPath: m_Name

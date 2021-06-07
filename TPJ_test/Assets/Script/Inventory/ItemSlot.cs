@@ -13,6 +13,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
 
     [SerializeField]
     private Text t_Count; // 아이템 갯수 표시
+    [SerializeField]
+    private GameObject go_Count;
 
     private ItemEffectDataBase itemData;
     private SlotInfo slotInfo;
@@ -34,7 +36,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
     }
 
     // 아이템 획득
-    public void Additem(Item _item, int _count)
+    public void Additem(Item _item, int _count = 1)
     {
         item = _item;
         itemCount = _count;
@@ -42,11 +44,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
 
         if(item.itemType != Item.ItemType.Equipment)
         {
-            t_Count.text = itemCount.ToString();
+            go_Count.SetActive(true);
+            t_Count.text = "X" + itemCount.ToString();
         }
         else
         {
             t_Count.text = "0";
+            go_Count.SetActive(false);
         }
 
         Setcolor(1);
@@ -55,7 +59,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
     // 아이템 갯수 조절
     public void SetSlotCount(int _count)
     {
-        t_Count.gameObject.SetActive(true);
         itemCount += _count;
         t_Count.text = "X" + itemCount.ToString();
 
@@ -75,8 +78,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
         Setcolor(0);
 
         t_Count.text = "0";
-        t_Count.gameObject.SetActive(false);
-
+        go_Count.SetActive(false);
         slotClear = true;
     }
 
