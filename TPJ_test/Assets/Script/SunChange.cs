@@ -10,7 +10,7 @@ public class SunChange : MonoBehaviour
 
     [SerializeField] private float nightFogDensity; // 밤상태의 Fog밀도
     private float dayFogDensity; // 낮 상태의 Fog밀도
-    private float currentFogDensity; // Fog밀도 계산
+    private float currentFogDensity; // 현재 Fog밀도 계산
 
     private bool nightCheck = false; //밤낮 확인용
     // Start is called before the first frame update

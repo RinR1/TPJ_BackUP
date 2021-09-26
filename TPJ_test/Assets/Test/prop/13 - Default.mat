@@ -21,14 +21,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 13 - Default
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: _METALLICSPECGLOSSMAP _NORMALMAP _SPECULAR_SETUP
+  m_Shader: {fileID: -6465566751694194690, guid: c36eae1736ca9be489098e74733045ea,
+    type: 3}
+  m_ShaderKeywords: _METALLICSPECGLOSSMAP _NORMALMAP _OCCLUSIONMAP _SPECULAR_SETUP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - ALWAYS
   - SHADOWCASTER
@@ -104,11 +104,27 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8d23f685727bb4b44821a0e6c0e1b3ce, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_2253FC23_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 5d733777df6456e479374d38d230f050, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_5121290F_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 863d4abd40c23234ba7969ca913b9c83, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_B1D18901_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 45e8b129eb55c684fa2d9249d304f058, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_C5A9F2FE_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 8d23f685727bb4b44821a0e6c0e1b3ce, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -140,7 +156,7 @@ Material:
     - _Blend: 2
     - _BumpScale: 1
     - _Cull: 0
-    - _Cutoff: 0.7
+    - _Cutoff: 0.55
     - _DetailNormalMapScale: 1
     - _DstBlend: 1
     - _EnableHeightBlend: 0
@@ -157,7 +173,7 @@ Material:
     - _Metallic3: 0
     - _Mode: 3
     - _NumLayersCount: 1
-    - _OcclusionStrength: 1
+    - _OcclusionStrength: 0.7
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -175,7 +191,7 @@ Material:
     - _WorkflowMode: 0
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 0.3882353}
+    - _BaseColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
     - _Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
-    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0.98833734, g: 0.98833734, b: 0.98833734, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
