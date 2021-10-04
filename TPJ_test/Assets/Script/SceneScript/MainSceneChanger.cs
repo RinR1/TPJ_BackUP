@@ -74,7 +74,7 @@ public class MainSceneChanger : MonoBehaviour
 
     public void OptionButton()
     {
-        S_L.LoadData();
+
     }
 
     public void ReturnTitleButton()

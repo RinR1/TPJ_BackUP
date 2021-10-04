@@ -6,7 +6,12 @@ using System.IO;
 [System.Serializable]
 public class SaveData
 {
-    public Vector3 playerpos;
+    public Vector3 playerPos;
+    public Vector3 playerRot;
+
+    public List<int> invenArrayNum = new List<int>();
+    public List<string> invenItemName = new List<string>();
+    public List<int> invenItemNum = new List<int>();
 }
 
 
@@ -18,6 +23,7 @@ public class Save_Load : MonoBehaviour
     private string SAVE_FILENAME = "/SaveFile.text";
 
     private PlayerController thePlayer;
+    private Inventory theInventory;
 
 
     void Start()
@@ -33,8 +39,28 @@ public class Save_Load : MonoBehaviour
     public void SaveData()
     {
         thePlayer = FindObjectOfType<PlayerController>();
+        theInventory = FindObjectOfType<Inventory>();
 
-        saveData.playerpos = thePlayer.transform.position;
+        saveData.playerPos = thePlayer.transform.position;
+        saveData.playerRot = thePlayer.transform.eulerAngles;
+
+        saveData.invenArrayNum.Clear();
+        saveData.invenItemName.Clear();
+        saveData.invenItemNum.Clear();
+
+        ItemSlot[] _slots = theInventory.GetSlots();
+
+        for(int i = 0; i < _slots.Length; i++)
+        {
+
+            if (_slots[i].item != null)
+            {
+                saveData.invenArrayNum.Add(i);
+                saveData.invenItemName.Add(_slots[i].item.itemName);
+                saveData.invenItemNum.Add(_slots[i].itemCount);
+            }
+        }
+
 
         string json = JsonUtility.ToJson(saveData);
 
@@ -50,7 +76,17 @@ public class Save_Load : MonoBehaviour
             string loadJson = File.ReadAllText(SAVEDATA_DIRECTORY + SAVE_FILENAME);
             saveData = JsonUtility.FromJson<SaveData>(loadJson);
 
-            thePlayer.transform.position = saveData.playerpos;
+            thePlayer = FindObjectOfType<PlayerController>();
+            theInventory = FindObjectOfType<Inventory>();
+
+
+            thePlayer.transform.position = saveData.playerPos;
+            thePlayer.transform.eulerAngles = saveData.playerRot;
+
+            for (int i = 0; i < saveData.invenItemName.Count; i++)
+            {
+                theInventory.LoadtoInv(saveData.invenArrayNum[i], saveData.invenItemName[i],saveData.invenItemNum[i]);
+            }
         }
         else
         {

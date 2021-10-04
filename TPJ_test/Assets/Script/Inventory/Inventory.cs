@@ -24,6 +24,22 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private SlotInfo slotInfo;
 
+    public ItemSlot[] GetSlots() { return slots; }
+
+    [SerializeField]
+    private Item[] items;
+
+    public void LoadtoInv(int _arrayNum, string _itemName, int _itemNum)
+    {
+        for(int i = 0; i < items.Length; i++)
+        {
+            if (items[i].itemName == _itemName)
+            {
+                slots[_arrayNum].Additem(items[i], _itemNum);
+            }
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

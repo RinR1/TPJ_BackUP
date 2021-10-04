@@ -5,17 +5,57 @@ using UnityEngine.SceneManagement;
 
 public class TitleSceneChanger : MonoBehaviour
 {
+    public static TitleSceneChanger ts_mine;
+
     [SerializeField]
-    private Save_Load S_L;
+    private Save_Load theSaveNRoad;
+
+    private void Awake()
+    {
+        if (ts_mine == null)
+        {
+            ts_mine = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(this.gameObject);
+    }
 
     public void NewGameButton()
     {
-        SceneManager.LoadScene("MainScene");
+        StartCoroutine(NewLoadCoroutine());
+    }
+
+    IEnumerator NewLoadCoroutine()
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync("MainScene");
+
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+
+        Destroy(gameObject);
     }
 
     public void LoadGameButton()
     {
-        S_L.LoadData();
+        StartCoroutine(LoadCoroutine());
+    }
+
+    IEnumerator LoadCoroutine()
+    {
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync("MainScene");
+
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+
+        theSaveNRoad = FindObjectOfType<Save_Load>();
+        theSaveNRoad.LoadData();
+        Destroy(gameObject);
     }
 
     public void OptionButton()
