@@ -44,8 +44,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
 
         if(item.itemType != Item.ItemType.Equipment)
         {
-            go_Count.SetActive(true);
-            t_Count.text = "X" + itemCount.ToString();
+           go_Count.SetActive(true);
+           t_Count.text = "X" + itemCount.ToString(); 
+
         }
         else
         {

@@ -62,13 +62,16 @@ public class Status : MonoBehaviour
     {   
         GaugeUpdate();
         
-        if (isActive)
+        if(Time.timeScale != 0)
         {
-            Hungry();
-            Thirsty();
-            SpRechargingTime();
-            SpRecover();
+            if (isActive)
+            {
+                Hungry();
+                Thirsty();
+                SpRechargingTime();
+                SpRecover();
             
+            }
         }
     }
 

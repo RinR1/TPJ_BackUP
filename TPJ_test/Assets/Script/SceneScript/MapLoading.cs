@@ -55,7 +55,7 @@ public class MapLoading : MonoBehaviour
             if (!sceneChange)
             {
                 sceneChange = true;
-                other.transform.position = new Vector3(2f, 2.1f, -62.5f);
+                other.transform.position = new Vector3(2f, 2.1f, -69.5f);
             }
             else
             {

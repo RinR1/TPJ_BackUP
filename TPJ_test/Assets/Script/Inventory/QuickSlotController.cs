@@ -40,8 +40,6 @@ public class QuickSlotController : MonoBehaviour
             ChangeSlot(4);
         else if (Input.GetKeyDown(KeyCode.Alpha6))
             ChangeSlot(5);
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-            ChangeSlot(6);
     }
 
     private void ChangeSlot(int _num)

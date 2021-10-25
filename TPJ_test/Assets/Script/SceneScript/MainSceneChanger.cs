@@ -8,16 +8,13 @@ public class MainSceneChanger : MonoBehaviour
 {
     public static bool PauseActivated = false;
 
+    //  필요 컴포넌트
     [SerializeField]
     private GameObject go_PauseMenu;
     [SerializeField]
-    private PlayerController playCon;
-    [SerializeField]
-    private GunController gunCon;
-    [SerializeField]
-    private Status stat;
-    [SerializeField]
     private Save_Load S_L;
+    [SerializeField]
+    private Inventory inv;
 
     void Update()
     {
@@ -26,7 +23,7 @@ public class MainSceneChanger : MonoBehaviour
 
     private void TryOpenPause()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && Inventory.InventoryActivated != true && ActionController.TextboxActivated != true)
         {
             PauseActivated = !PauseActivated;
 
@@ -36,9 +33,6 @@ public class MainSceneChanger : MonoBehaviour
 
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
-                playCon.isActive = false;
-                gunCon.isActive = false;
-                stat.isActive = false;
                 go_PauseMenu.SetActive(true);
             }
             else
@@ -46,9 +40,6 @@ public class MainSceneChanger : MonoBehaviour
                 Time.timeScale = 1;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
-                playCon.isActive = true;
-                gunCon.isActive = true;
-                stat.isActive = true;
                 go_PauseMenu.SetActive(false);
             }
         }
@@ -61,9 +52,6 @@ public class MainSceneChanger : MonoBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        playCon.isActive = true;
-        gunCon.isActive = true;
-        stat.isActive = true;
         go_PauseMenu.SetActive(false);
     }
 
@@ -82,9 +70,6 @@ public class MainSceneChanger : MonoBehaviour
         PauseActivated = !PauseActivated;
 
         Time.timeScale = 1;
-        playCon.isActive = true;
-        gunCon.isActive = true;
-        stat.isActive = true;
         go_PauseMenu.SetActive(false);
 
         SceneManager.LoadScene("TitleScene");

@@ -7,7 +7,6 @@ public class Inventory : MonoBehaviour
 {
     public static bool InventoryActivated = false;
 
-
     [SerializeField]
     private GameObject go_Inventory;
     [SerializeField]
@@ -15,12 +14,7 @@ public class Inventory : MonoBehaviour
 
     public ItemSlot[] slots; //아이템 슬롯
 
-    [SerializeField]
-    private PlayerController playCon;
-    [SerializeField]
-    private GunController gunCon;
-    [SerializeField]
-    private Status stat;
+    //  필요 컴포넌트
     [SerializeField]
     private SlotInfo slotInfo;
 
@@ -54,7 +48,7 @@ public class Inventory : MonoBehaviour
 
     private void TryOpenInventory()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) && MainSceneChanger.PauseActivated != true && ActionController.TextboxActivated != true)
         {
             InventoryActivated = !InventoryActivated;
 
@@ -63,9 +57,6 @@ public class Inventory : MonoBehaviour
                 Time.timeScale = 0;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
-                playCon.isActive = false;
-                gunCon.isActive = false;
-                stat.isActive = false;
                 OpenInventory();
             }
             else
@@ -74,9 +65,6 @@ public class Inventory : MonoBehaviour
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 slotInfo.HideTooltip();
-                playCon.isActive = true;
-                gunCon.isActive = true;
-                stat.isActive = true;
                 CloseInventory();
             }
         }

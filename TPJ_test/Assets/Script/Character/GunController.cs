@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
+    [SerializeField]
+    private PlayerController player_mine;
+
     // 현재 장착된 총
     [SerializeField]
     private GunManager currentGunManager;
@@ -27,12 +30,18 @@ public class GunController : MonoBehaviour
     [SerializeField]
     private Camera hitCam;
 
+    [SerializeField]
     private Crosshair cro_mine;
 
     [SerializeField]
-    private GameObject hit_Effect; // 피격 이펙트
+    private GameObject enemyHit_Effect; // 적 피격 이펙트
+    [SerializeField]
+    private GameObject nomalHit_Effect; // 디폴트 피격 이펙트
 
     public bool isActive = true;
+    public bool isRebound = false;
+
+    public float camrecoil;
     // Start is called before the first frame update
     void Start()
     {
@@ -119,10 +128,14 @@ public class GunController : MonoBehaviour
             if (hitInfo.transform.tag == "Enemy")
             {
                 hitInfo.transform.GetComponent<Robot>().RobotDamage(currentGunManager.gunDamage);
+                GameObject cloan = Instantiate(enemyHit_Effect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                Destroy(cloan, 0.5f);
             }
-
-            GameObject cloan  = Instantiate(hit_Effect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
-            Destroy(cloan, 0.5f);
+            else
+            {
+                GameObject cloan2  = Instantiate(nomalHit_Effect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                Destroy(cloan2, 0.5f);
+            }
         }
     }
 
@@ -143,7 +156,6 @@ public class GunController : MonoBehaviour
         if (currentGunManager.carryBulletCount > 0)
         {
             reloadCheck = true;
-
 
             yield return new WaitForSeconds(currentGunManager.reloadSpeed);
 
@@ -241,8 +253,20 @@ public class GunController : MonoBehaviour
         if (!fineSightCheck)
         {
             currentGunManager.transform.localPosition = originPos;
+            if (player_mine.crouchCheck == true)
+            {
+                camrecoil += 2f;
+            }
+            else
+            {
+                camrecoil += 2.8f;
+            }
+            if(camrecoil != 0)
+            {
+                StartCoroutine(CamRecoilBack());
+            }
 
-            while(currentGunManager.transform.localPosition.z >= currentGunManager.retroActionForce + 0.02f)
+            while (currentGunManager.transform.localPosition.z >= currentGunManager.retroActionForce + 0.02f)
             {
                 currentGunManager.transform.localPosition = Vector3.Lerp(currentGunManager.transform.localPosition, recoilBack, 0.4f);
                 yield return null;
@@ -257,6 +281,18 @@ public class GunController : MonoBehaviour
         else
         {
             currentGunManager.transform.localPosition = currentGunManager.fineSinghtOriginPos;
+            if (player_mine.crouchCheck == true)
+            {
+                camrecoil += 0.9f;
+            }
+            else
+            {
+                camrecoil += 1.8f;
+            }
+            if (camrecoil != 0)
+            {
+                StartCoroutine(CamRecoilBack());
+            }
 
             while (currentGunManager.transform.localPosition.z >= currentGunManager.retroFineSightForce + 0.02f)
             {
@@ -270,6 +306,25 @@ public class GunController : MonoBehaviour
                 yield return null;
             }
         }
+    }
+
+    IEnumerator CamRecoilBack()
+    {
+        isRebound = true;
+        while (true)
+        {
+            camrecoil = Mathf.Lerp(camrecoil, 0, Time.deltaTime * 1.5f);
+            if(camrecoil < 0.00001)
+            {
+                camrecoil = 0;
+                isRebound = false;
+
+                break;
+            }
+            yield return null;
+        }
+
+        yield break;
     }
 
     private void PlaySE(AudioClip _clip)

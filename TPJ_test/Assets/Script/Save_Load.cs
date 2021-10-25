@@ -6,6 +6,7 @@ using System.IO;
 [System.Serializable]
 public class SaveData
 {
+
     public Vector3 playerPos;
     public Vector3 playerRot;
 
@@ -15,9 +16,11 @@ public class SaveData
 }
 
 
+
 public class Save_Load : MonoBehaviour
 {
     private SaveData saveData = new SaveData();
+    public bool indoorCheck = false;
 
     private string SAVEDATA_DIRECTORY;
     private string SAVE_FILENAME = "/SaveFile.text";

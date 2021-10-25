@@ -3202,8 +3202,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.4820825
-  m_Height: 1.8492072
+  m_Radius: 0.47
+  m_Height: 1.7
   m_Direction: 1
   m_Center: {x: 0.03109856, y: 0.82460356, z: 0}
 --- !u!114 &6758274714435001898
@@ -3221,14 +3221,14 @@ MonoBehaviour:
   robotName: 
   robotHp: 100
   walkSpeed: 2
-  runSpeed: 2
+  runSpeed: 3
   walkTime: 3
   idleTime: 7
   attackDelay: 2
   attackDelayA: 0.75
   attackDelayB: 0.77
   attackDamage: 10
-  attackCheck: 0
+  deadCheck: 0
   anim: {fileID: 6673650939840498748}
   rigid: {fileID: 6758274714435001897}
   capCol: {fileID: 6758274714435001896}
@@ -3262,7 +3262,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 100

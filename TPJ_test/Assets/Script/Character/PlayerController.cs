@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
+    private GunManager gm_mine;
 
     [SerializeField] // private값을 유니티상에서 수정가능하도록 보여줌
     private float walkSpeed; // 캐릭터 걷기속도
@@ -20,7 +22,7 @@ public class PlayerController : MonoBehaviour
     // 상태 체크 변수들
     private bool walkCheck = false; // 이동상태 체크
     private bool runCheck = false; // 달리기상태 체크
-    private bool crouchCheck = false; // 앉기상태 체크
+    public bool crouchCheck = false; // 앉기상태 체크
     private bool jumpCheck = true; // 지면과의 접촉 체크
 
     //이동상태 체크용 변수
@@ -40,7 +42,8 @@ public class PlayerController : MonoBehaviour
     // 카메라 시야각 제한
     [SerializeField]
     private float cameraRotationLimite;
-    private float cameraCurrentRotationX = 0f;
+
+    public float cameraCurrentRotationX = 0f;
 
     // 필요 컴포넌트
     [SerializeField]
@@ -51,8 +54,12 @@ public class PlayerController : MonoBehaviour
     private Crosshair cro_mine;
     private Status st_mine;
 
+    [SerializeField]
+    private GunController gu_Mine;
+
     public bool isActive = true;
 
+    public float testcoil;
     private void Awake()
     {
         if(FindObjectsOfType<PlayerController>().Length != 1)
@@ -72,20 +79,24 @@ public class PlayerController : MonoBehaviour
         applySpeed = walkSpeed;
         originPosY = c_mine.transform.localPosition.y;
         applyCrouchPosY = originPosY;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isActive)
+        if (Time.deltaTime != 0)
         {
-            JumpCheck();
-            TryJump();
-            TryRun();
-            TryCrouch();
-            PlayerMove();
-            CameraRotation();
-            CharacterRotation();
+            if (isActive)
+            {
+                JumpCheck();
+                TryJump();
+                TryRun();
+                TryCrouch();
+                PlayerMove();
+                CameraRotation();
+                CharacterRotation();
+            }
         }
     }
 
@@ -160,7 +171,7 @@ public class PlayerController : MonoBehaviour
     // 캐릭터 앉기 체크
     private void TryCrouch()
     {
-        if(Input.GetKeyDown(KeyCode.C) && jumpCheck)
+        if(Input.GetKeyDown(KeyCode.LeftControl) && jumpCheck)
         {
             Crouch();
         }
@@ -238,16 +249,12 @@ public class PlayerController : MonoBehaviour
     // 카메라 상하 회전설정
     private void CameraRotation()
     {
-        if(Time.deltaTime != 0)
-        {
-            float mouseRotationX = Input.GetAxisRaw("Mouse Y");
-            float c_rotationX = mouseRotationX * lookSensitivity;
-            cameraCurrentRotationX -= c_rotationX;
-            cameraCurrentRotationX = Mathf.Clamp(cameraCurrentRotationX, -cameraRotationLimite, cameraRotationLimite); // Clamp를 통한 카메라 시야각 제한
+        float mouseRotationX = Input.GetAxisRaw("Mouse Y");
+        float c_rotationX = mouseRotationX * lookSensitivity;
+        cameraCurrentRotationX -= c_rotationX;
+        cameraCurrentRotationX = Mathf.Clamp(cameraCurrentRotationX, -cameraRotationLimite, cameraRotationLimite); // Clamp를 통한 카메라 시야각 제한
 
-            c_mine.transform.localEulerAngles = new Vector3(cameraCurrentRotationX, 0f, 0f);
-        }
-
+        c_mine.transform.localRotation = Quaternion.Euler((cameraCurrentRotationX - gu_Mine.camrecoil < -45 ? -45 : cameraCurrentRotationX - gu_Mine.camrecoil), 0f, 0f);
     }
 
     // 캐릭터 좌우 회전설정(카메라 좌우)

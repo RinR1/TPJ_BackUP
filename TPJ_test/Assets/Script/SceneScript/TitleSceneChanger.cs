@@ -53,6 +53,7 @@ public class TitleSceneChanger : MonoBehaviour
             yield return null;
         }
 
+
         theSaveNRoad = FindObjectOfType<Save_Load>();
         theSaveNRoad.LoadData();
         Destroy(gameObject);
