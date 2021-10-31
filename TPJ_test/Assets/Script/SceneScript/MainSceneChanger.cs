@@ -7,10 +7,15 @@ using UnityEngine.SceneManagement;
 public class MainSceneChanger : MonoBehaviour
 {
     public static bool PauseActivated = false;
+    public static bool GameClearActivated = false;
 
     //  필요 컴포넌트
     [SerializeField]
     private GameObject go_PauseMenu;
+    [SerializeField]
+    private GameObject go_ClearMenu;
+    [SerializeField]
+    private GameObject go_GameOver;
     [SerializeField]
     private Save_Load S_L;
     [SerializeField]
@@ -19,11 +24,13 @@ public class MainSceneChanger : MonoBehaviour
     void Update()
     {
         TryOpenPause();
+        TryGameOver();
+        TryGameClear();
     }
 
     private void TryOpenPause()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && Inventory.InventoryActivated != true && ActionController.TextboxActivated != true)
+        if (Input.GetKeyDown(KeyCode.Escape) && Inventory.InventoryActivated != true && ActionController.TextboxActivated != true && GameClearActivated != true && Status.PlayerDead != true)
         {
             PauseActivated = !PauseActivated;
 
@@ -42,6 +49,30 @@ public class MainSceneChanger : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 go_PauseMenu.SetActive(false);
             }
+        }
+    }
+
+    private void TryGameOver()
+    {
+        if(Status.PlayerDead == true)
+        {
+            Time.timeScale = 0;
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            go_GameOver.SetActive(true);
+        }
+    }
+
+    private void TryGameClear()
+    {
+        if (GameClearActivated)
+        {
+            Time.timeScale = 0;
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            go_ClearMenu.SetActive(true);
         }
     }
 
@@ -71,6 +102,7 @@ public class MainSceneChanger : MonoBehaviour
 
         Time.timeScale = 1;
         go_PauseMenu.SetActive(false);
+        go_ClearMenu.SetActive(false);
 
         SceneManager.LoadScene("TitleScene");
     }

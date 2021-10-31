@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class Robot : MonoBehaviour
 {
+
     [SerializeField] private string robotName; // 로봇 이름
     [SerializeField] private int robotHp; // 로봇 체력
 
@@ -20,6 +21,8 @@ public class Robot : MonoBehaviour
 
     [SerializeField] private int attackDamage;
 
+    [SerializeField] PlayerController player;
+
     private float currentTime;
 
     private bool walking; // 걷기 체크
@@ -27,6 +30,7 @@ public class Robot : MonoBehaviour
     public bool deadCheck; // 로봇 사망여부 확인
     private bool attackCheck; // 로봇 공격여부 체크
     private bool actionCheck; // 행동 체크
+    private bool damageCheck; // 몬스터 피격체크
 
     public Animator anim;
     [SerializeField] private Rigidbody rigid;
@@ -52,6 +56,7 @@ public class Robot : MonoBehaviour
         {
             Move();
             TimeCheck();
+            RobotHitChase();
         }
     }
 
@@ -163,12 +168,26 @@ public class Robot : MonoBehaviour
         if (!deadCheck)
         {
             robotHp -= _dmg;
-        
+
+            if(robotHp != 100)
+            {
+                damageCheck = true;
+            }
+
             if(robotHp <= 0)
             {
                 RobotDead();
                 Debug.Log("사망했습니다");
             }
+        }
+    }
+
+    private void RobotHitChase()
+    {
+        if(damageCheck == true)
+        {
+            actionCheck = false;
+            TryRun(player.transform.position);
         }
     }
 

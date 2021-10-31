@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9eca8c5002dba4c44bad46161e7259cb, type: 3}
-  m_Name: Bolt
+  m_Name: MachineParts
   m_EditorClassIdentifier: 
-  itemName: 
-  itemInfo: 
-  itemType: 0
-  itemImage: {fileID: 0}
-  itemPrefab: {fileID: 0}
+  itemName: "\uAE30\uACC4\uBD80\uD488"
+  itemInfo: "\uC7A1\uB2E4\uD55C \uAE30\uACC4\uBD80\uD488\uB4E4\uC774\uB2E4. \n\uAE30\uACC4\uB97C
+    \uC218\uB9AC\uD558\uB294\uB370 \uD544\uC694\uD55C \uC7AC\uB8CC\uB4E4\uC774\uB2C8
+    \uAF2D \uCC59\uACA8\uB450\uC790"
+  itemType: 3
+  itemImage: {fileID: 21300000, guid: 7a6197a7632ed174c8cdcb2b645f5731, type: 3}
+  itemPrefab: {fileID: 916114553519974994, guid: 65b3ec2b2bd83bd409b954cfecece77f,
+    type: 3}
   weaponType: 

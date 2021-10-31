@@ -52,14 +52,16 @@ public class GunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isActive)
+        if(Time.timeScale != 0)
         {
-            GunFireRateCal();
-            TryFire();
-            TryReload();
-            TryFineSight();
+            if (isActive)
+            {
+                GunFireRateCal();
+                TryFire();
+                TryReload();
+                TryFineSight();
+            }
         }
-
     }
 
     // 연사속도 재계산
@@ -99,7 +101,6 @@ public class GunController : MonoBehaviour
                 StartCoroutine(ReloadCoroutine());
             }
         }
-
     }
 
     //발사 후 계산
@@ -112,7 +113,6 @@ public class GunController : MonoBehaviour
         TargetHit();
         StopAllCoroutines();
         StartCoroutine(RetroAction());
-
     }
 
     private void TargetHit()

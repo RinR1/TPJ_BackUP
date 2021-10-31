@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Status : MonoBehaviour
 {
+    public static bool PlayerDead = false;
 
     [SerializeField]
     private int hp; // 최대체력
@@ -168,7 +169,7 @@ public class Status : MonoBehaviour
 
         if(currentHp <= 0)
         {
-            Debug.Log("캐릭터 사망");
+            PlayerDeadActive();
         }
     }
 
@@ -214,5 +215,10 @@ public class Status : MonoBehaviour
     public int GetCurrentSP()
     {
         return currentSp;
+    }
+
+    private void PlayerDeadActive()
+    {
+        PlayerDead = true;
     }
 }

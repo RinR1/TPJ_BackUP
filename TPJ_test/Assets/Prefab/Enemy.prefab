@@ -3148,7 +3148,7 @@ Transform:
   m_GameObject: {fileID: 6758274714435001902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.19, z: -11.7}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
+  m_LocalScale: {x: 1.8, y: 1.7999995, z: 1.7999995}
   m_Children:
   - {fileID: 6764046574091699312}
   - {fileID: 6755755902277555014}
@@ -3228,6 +3228,7 @@ MonoBehaviour:
   attackDelayA: 0.75
   attackDelayB: 0.77
   attackDamage: 10
+  player: {fileID: 0}
   deadCheck: 0
   anim: {fileID: 6673650939840498748}
   rigid: {fileID: 6758274714435001897}
@@ -5875,7 +5876,7 @@ BoxCollider:
   m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.1, z: 0.9}
-  m_Center: {x: 0.39, y: 1.16, z: 0.9}
+  m_Center: {x: 0.39, y: 1.15, z: 0.9}
 --- !u!1 &6758715335181799586
 GameObject:
   m_ObjectHideFlags: 0

@@ -219,7 +219,6 @@ public class PlayerController : MonoBehaviour
     // 캐릭터 이동
     private void PlayerMove()
     {
-
         float _moveDirX = Input.GetAxis("Horizontal");
         float _moveDirZ = Input.GetAxis("Vertical");
 
@@ -264,4 +263,5 @@ public class PlayerController : MonoBehaviour
         Vector3 c_RotationY = new Vector3(0f, mouseRotationY, 0f) * lookSensitivity;
         m_rigid.MoveRotation(m_rigid.rotation * Quaternion.Euler(c_RotationY));
     }
+
 }

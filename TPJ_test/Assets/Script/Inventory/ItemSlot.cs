@@ -46,7 +46,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
         {
            go_Count.SetActive(true);
            t_Count.text = "X" + itemCount.ToString(); 
-
         }
         else
         {

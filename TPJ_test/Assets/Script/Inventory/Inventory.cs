@@ -11,7 +11,8 @@ public class Inventory : MonoBehaviour
     private GameObject go_Inventory;
     [SerializeField]
     private GameObject go_SlotParent;
-
+    [SerializeField]
+    private QuestBoxManager qbManager;
     public ItemSlot[] slots; //아이템 슬롯
 
     //  필요 컴포넌트
@@ -48,7 +49,7 @@ public class Inventory : MonoBehaviour
 
     private void TryOpenInventory()
     {
-        if (Input.GetKeyDown(KeyCode.I) && MainSceneChanger.PauseActivated != true && ActionController.TextboxActivated != true)
+        if (Input.GetKeyDown(KeyCode.I) && MainSceneChanger.PauseActivated != true && ActionController.TextboxActivated != true && MainSceneChanger.GameClearActivated != true)
         {
             InventoryActivated = !InventoryActivated;
 
@@ -84,6 +85,10 @@ public class Inventory : MonoBehaviour
     {
         if(Item.ItemType.Equipment != _item.itemType)
         {
+            if (Item.ItemType.Questitem == _item.itemType)
+            {
+                qbManager.quest1ObjCheck++;
+            }
             for (int i = 0; i < slots.Length; i++)
             {
                 if (slots[i].item != null)
@@ -122,7 +127,6 @@ public class Inventory : MonoBehaviour
                     slots[i + 1].ClearSlot();
 
                     slots[i].slotClear = false;
-                    Debug.Log("이거 되긴하냐?");
                 }
             }
         }
