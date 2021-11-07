@@ -3228,13 +3228,15 @@ MonoBehaviour:
   attackDelayA: 0.75
   attackDelayB: 0.77
   attackDamage: 10
-  player: {fileID: 0}
-  deadCheck: 0
   anim: {fileID: 6673650939840498748}
+  player: {fileID: 0}
+  status: {fileID: 0}
   rigid: {fileID: 6758274714435001897}
   capCol: {fileID: 6758274714435001896}
   boxCol: {fileID: 6759491456978078580}
-  status: {fileID: 0}
+  deadCheck: 0
+  keyPrefab: {fileID: 2532156606422189774, guid: 1112750ef556dd145b27092a88fbd520,
+    type: 3}
   nav: {fileID: 0}
 --- !u!114 &6758274714435001903
 MonoBehaviour:

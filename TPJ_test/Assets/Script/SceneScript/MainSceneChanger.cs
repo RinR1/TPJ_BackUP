@@ -8,6 +8,7 @@ public class MainSceneChanger : MonoBehaviour
 {
     public static bool PauseActivated = false;
     public static bool GameClearActivated = false;
+    public static bool CityhallActivated = false;
 
     //  필요 컴포넌트
     [SerializeField]
@@ -16,6 +17,8 @@ public class MainSceneChanger : MonoBehaviour
     private GameObject go_ClearMenu;
     [SerializeField]
     private GameObject go_GameOver;
+    [SerializeField]
+    private GameObject go_cityhall;
     [SerializeField]
     private Save_Load S_L;
     [SerializeField]
@@ -26,6 +29,7 @@ public class MainSceneChanger : MonoBehaviour
         TryOpenPause();
         TryGameOver();
         TryGameClear();
+        TryCityhallActivated();
     }
 
     private void TryOpenPause()
@@ -49,6 +53,15 @@ public class MainSceneChanger : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 go_PauseMenu.SetActive(false);
             }
+        }
+    }
+
+    private void TryCityhallActivated()
+    {
+        if (CityhallActivated)
+        {
+            go_cityhall.SetActive(true);
+            CityhallActivated = !CityhallActivated;
         }
     }
 

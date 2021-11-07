@@ -21,6 +21,7 @@ public class Item : ScriptableObject
         Used,
         Ingredient,
         Questitem,
+        Keyitem,
         ETC
     }
 

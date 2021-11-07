@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eca8c5002dba4c44bad46161e7259cb, type: 3}
+  m_Name: CityHallKey
+  m_EditorClassIdentifier: 
+  itemName: "\uC2DC\uCCAD\uC815\uBB38 \uC5F4\uC1E0"
+  itemInfo: "\uC2DC\uCCAD \uC55E \uB85C\uBD07\uC774 \uB5A8\uC5B4\uD2B8\uB9B0 \uC5F4\uC1E0\uB2E4.
+    \uC774\uAC8C \uC788\uC73C\uBA74 \uC11C\uC6B8\uC2DC\uCCAD \uB0B4\uBD80\uB85C \uB4E4\uC5B4\uAC08\uC218
+    \uC788\uC744\uAC83\uAC19\uB2E4."
+  itemType: 4
+  itemImage: {fileID: 0}
+  itemPrefab: {fileID: 2532156606422189774, guid: 1112750ef556dd145b27092a88fbd520,
+    type: 3}
+  weaponType: 

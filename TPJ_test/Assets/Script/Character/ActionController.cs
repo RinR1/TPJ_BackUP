@@ -24,6 +24,7 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
     private bool ObjScan = true;
 
     public bool quest1Check = false;
+    private bool quest2Check = false;
     private bool questboxMoveCheck = false;
     private bool questboxReturnCheck = false;
 
@@ -55,6 +56,8 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
     private GameObject go_Quest;
     [SerializeField]
     private GameObject quest1;
+    [SerializeField]
+    private GameObject quest2;
 
     public Item item; // 아이템 정보
     // Update is called once per frame
@@ -81,12 +84,33 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
 
     public void Quest1Action()
     {
+        quest1Check = true;
+
         Time.timeScale = 0;
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
         TextBoxData txtData = quest1.transform.GetComponent<TextBoxData>();
+        TextChange(txtData.id, txtData.isNpc);
+
+        ObjScan = false;
+        textActivated = true;
+        TextboxActivated = true;
+        interText.gameObject.SetActive(false);
+        scanObject.SetActive(true);
+    }
+
+    public void Quest2Action()
+    {
+        quest2Check = true;
+
+        Time.timeScale = 0;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        TextBoxData txtData = quest2.transform.GetComponent<TextBoxData>();
         TextChange(txtData.id, txtData.isNpc);
 
         ObjScan = false;
@@ -254,6 +278,7 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
             isTextDone = true;
             textActivated = false;
             quest1Check = false;
+            quest2Check = false;
             textIndex = 0;
             questBoxNameText.text = questManager.QuestCheck(id);
             questBoxText.text = questManager.QuestContentsCheck(id);
@@ -297,6 +322,11 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
                 if (quest1Check)
                 {
                     TextBoxData txtData = quest1.transform.GetComponent<TextBoxData>();
+                    TextChange(txtData.id, txtData.isNpc);
+                }
+                else if (quest2Check)
+                {
+                    TextBoxData txtData = quest2.transform.GetComponent<TextBoxData>();
                     TextChange(txtData.id, txtData.isNpc);
                 }
                 else

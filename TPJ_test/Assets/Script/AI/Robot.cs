@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class Robot : MonoBehaviour
 {
+    public static bool Quest2ItemActivated = false;
 
     [SerializeField] private string robotName; // 로봇 이름
     [SerializeField] private int robotHp; // 로봇 체력
@@ -21,9 +22,15 @@ public class Robot : MonoBehaviour
 
     [SerializeField] private int attackDamage;
 
+    public Animator anim;
     [SerializeField] PlayerController player;
+    [SerializeField] private Status status;
+    [SerializeField] private Rigidbody rigid;
+    [SerializeField] private CapsuleCollider capCol;
+    [SerializeField] private BoxCollider boxCol;
 
     private float currentTime;
+    [SerializeField] private int questItem;
 
     private bool walking; // 걷기 체크
     private bool running; // 달리기 체크
@@ -32,13 +39,9 @@ public class Robot : MonoBehaviour
     private bool actionCheck; // 행동 체크
     private bool damageCheck; // 몬스터 피격체크
 
-    public Animator anim;
-    [SerializeField] private Rigidbody rigid;
-    [SerializeField] private CapsuleCollider capCol;
-    [SerializeField] private BoxCollider boxCol;
+    [SerializeField] private GameObject keyPrefab;
 
     private Vector3 destination;
-    [SerializeField] private Status status;
     public NavMeshAgent nav;
 
     // Start is called before the first frame update
@@ -47,6 +50,7 @@ public class Robot : MonoBehaviour
         currentTime = idleTime;
         actionCheck = true;
         nav = GetComponent<NavMeshAgent>();
+        questItem = 0;
     }
 
     // Update is called once per frame
@@ -198,6 +202,17 @@ public class Robot : MonoBehaviour
         deadCheck = true;
         nav.ResetPath();
         anim.SetTrigger("Dead");
+
+        if(!Quest2ItemActivated)
+        {
+            int itemDrop = Random.Range(0, 3);
+            if(itemDrop == 1)
+            {
+                GameObject Key = Instantiate(keyPrefab);
+                Key.transform.position = this.transform.position;
+                QuestBoxManager.Quest2Clear = true;
+            }
+        }
         Destroy(this.gameObject, 4f);
     }
 }

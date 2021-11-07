@@ -13,7 +13,6 @@ public class Quest1_Manager : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             questManager.questId = 10;
-            acMAnager.quest1Check = true;
             acMAnager.Quest1Action();
         }
     }
