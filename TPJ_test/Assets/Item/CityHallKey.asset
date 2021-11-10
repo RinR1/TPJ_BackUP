@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uC2DC\uCCAD\uC815\uBB38 \uC5F4\uC1E0"
   itemInfo: "\uC2DC\uCCAD \uC55E \uB85C\uBD07\uC774 \uB5A8\uC5B4\uD2B8\uB9B0 \uC5F4\uC1E0\uB2E4.
-    \uC774\uAC8C \uC788\uC73C\uBA74 \uC11C\uC6B8\uC2DC\uCCAD \uB0B4\uBD80\uB85C \uB4E4\uC5B4\uAC08\uC218
-    \uC788\uC744\uAC83\uAC19\uB2E4."
+    \n\uC774\uAC8C \uC788\uC73C\uBA74 \uC11C\uC6B8\uC2DC\uCCAD \uB0B4\uBD80\uB85C
+    \uB4E4\uC5B4\uAC08\uC218 \uC788\uC744\uAC83\uAC19\uB2E4."
   itemType: 4
   itemImage: {fileID: 0}
   itemPrefab: {fileID: 2532156606422189774, guid: 1112750ef556dd145b27092a88fbd520,

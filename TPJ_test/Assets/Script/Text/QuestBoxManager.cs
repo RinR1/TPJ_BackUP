@@ -24,10 +24,7 @@ public class QuestBoxManager : MonoBehaviour
     private void Update()
     {
         quest2Check();
-        Quest3Check();
     }
-
-
 
     void GenerateQuestData()
     {
@@ -35,22 +32,15 @@ public class QuestBoxManager : MonoBehaviour
                                             , new int[] {0}));
         questList.Add(10, new QuestBoxData("시청으로 들어갈 방법을 찾아라", "일단 시청앞 로봇들을 처리해보자"
                                     , new int[] { 1000, 2000 }));
-        questList.Add(20, new QuestBoxData("시청내부를 조사하라", "시청 내부에 들어가서 쓸만한 아이템을 찾아 보자(" + quest3ObjCheck +"/5)"
+        questList.Add(20, new QuestBoxData("시청내부를 조사하라", "시청 내부에 들어가서 쓸만한 아이템을 찾아 보자"
                                             , new int[] {2000, 3000}));
     }
+
     private void quest2Check()
     {
         if (Quest2Clear)
         {
             Robot.Quest2ItemActivated = true;
-        }
-    }
-
-    public void Quest3Check()
-    {
-        if(quest3ObjCheck == 5)
-        {
-           MainSceneChanger.GameClearActivated = true;
         }
     }
 

@@ -15,6 +15,8 @@ public class Inventory : MonoBehaviour
     private QuestBoxManager qbManager;
     [SerializeField]
     private ActionController acMAnager;
+    [SerializeField]
+    private GameObject q1Check;
     public ItemSlot[] slots; //아이템 슬롯
 
     //  필요 컴포넌트
@@ -87,15 +89,16 @@ public class Inventory : MonoBehaviour
     {
         if(Item.ItemType.Equipment != _item.itemType)
         {
-            if (Item.ItemType.Questitem == _item.itemType)
-            {
-                qbManager.quest3ObjCheck++;
-            }
-            else if (Item.ItemType.Keyitem == _item.itemType)
+            if (Item.ItemType.Keyitem == _item.itemType)
             {
                 MainSceneChanger.CityhallActivated = true;
                 acMAnager.Quest2Action();
+                if(q1Check != null)
+                {
+                    Destroy(q1Check);
+                }
             }
+
             else
             {
                 for (int i = 0; i < slots.Length; i++)

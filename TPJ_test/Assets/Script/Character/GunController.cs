@@ -52,7 +52,7 @@ public class GunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.timeScale != 0)
+        if(Inventory.InventoryActivated != true && ActionController.TextboxActivated != true && MainSceneChanger.PauseActivated != true && MainSceneChanger.GameClearActivated != true && Status.PlayerDead != true)
         {
             if (isActive)
             {

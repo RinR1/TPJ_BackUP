@@ -50,19 +50,22 @@ public class MapLoading : MonoBehaviour
 
     private void OnTriggerStay(Collider other) // 문에 접근시
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (other.CompareTag("Player"))
         {
-            if (!sceneChange)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                sceneChange = true;
-                other.transform.position = new Vector3(2f, 2.1f, -69.5f);
+                if (!sceneChange)
+                {
+                    sceneChange = true;
+                    other.transform.position = new Vector3(2f, 2.1f, -69.5f);
+                }
+                else
+                {
+                    sceneChange = false;
+                    other.transform.position = new Vector3(1.9f, 1.5f, -57.8f);
+                }
+                StartCoroutine(ChangeScene());
             }
-            else
-            {
-                sceneChange = false;
-                other.transform.position = new Vector3(1.9f, 1.5f, -57.8f);
-            }
-            StartCoroutine(ChangeScene());
         }
     }
 
@@ -77,7 +80,7 @@ public class MapLoading : MonoBehaviour
             }
             else
             {
-
+                textbar.SetActive(false);
             }
         }
     }

@@ -23,14 +23,13 @@ public class Robot : MonoBehaviour
     [SerializeField] private int attackDamage;
 
     public Animator anim;
-    [SerializeField] PlayerController player;
+    [SerializeField] private PlayerController player;
     [SerializeField] private Status status;
     [SerializeField] private Rigidbody rigid;
     [SerializeField] private CapsuleCollider capCol;
     [SerializeField] private BoxCollider boxCol;
 
     private float currentTime;
-    [SerializeField] private int questItem;
 
     private bool walking; // 걷기 체크
     private bool running; // 달리기 체크
@@ -50,7 +49,6 @@ public class Robot : MonoBehaviour
         currentTime = idleTime;
         actionCheck = true;
         nav = GetComponent<NavMeshAgent>();
-        questItem = 0;
     }
 
     // Update is called once per frame
@@ -60,6 +58,10 @@ public class Robot : MonoBehaviour
         {
             Move();
             TimeCheck();
+        }
+
+        if (damageCheck)
+        {
             RobotHitChase();
         }
     }
@@ -78,7 +80,7 @@ public class Robot : MonoBehaviour
     {
         if(walking || running)
         {
-            nav.SetDestination(transform.position + destination * 4f);
+            nav.SetDestination(this.transform.position + destination * 6f);
         }
     }
 
@@ -119,8 +121,9 @@ public class Robot : MonoBehaviour
 
     public void TryRun(Vector3 _targetPos)
     {
-        destination = new Vector3(_targetPos.x - transform.position.x, 0f, _targetPos.z - transform.position.z);
+        destination = new Vector3(_targetPos.x - transform.position.x, 0f, _targetPos.z - transform.position.z).normalized;
         nav.speed = runSpeed;
+        walking = false;
         running = true;
         anim.SetBool("Run", running);
         Debug.Log("러쉬");
@@ -128,6 +131,7 @@ public class Robot : MonoBehaviour
 
     private void TryWalk()
     {
+        running = false;
         walking = true;
         anim.SetBool("Walk", walking);
         currentTime = walkTime;
@@ -188,11 +192,8 @@ public class Robot : MonoBehaviour
 
     private void RobotHitChase()
     {
-        if(damageCheck == true)
-        {
-            actionCheck = false;
-            TryRun(player.transform.position);
-        }
+        actionCheck = false;
+        TryRun(player.transform.position);
     }
 
     private void RobotDead()

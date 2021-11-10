@@ -12,6 +12,7 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
     public Text questBoxNameText; // 퀘스트창 제목 텍스트
     public Text questBoxText; // 퀘스트창 내용 텍스트
     public GameObject scanObject; // 텍스트창 백그라운드
+    public Image FadeInImage; // 페이드 인/아웃
 
     private float rayRange = 3f; //레이 거리조절
     [SerializeField]
@@ -23,8 +24,10 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
     private bool isTextDone = false; // 대화창 대화종료 체크
     private bool ObjScan = true;
 
-    public bool quest1Check = false;
+    public  bool quest1Check = false;
     private bool quest2Check = false;
+    public bool quest3Start = false;
+    public bool quest3Check = false;
     private bool questboxMoveCheck = false;
     private bool questboxReturnCheck = false;
 
@@ -157,18 +160,38 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
         {
             if (hitinfo2.transform != null)
             {
-                Time.timeScale = 0;
+                if(hitinfo2.transform.name == "Robot_Dummy")
+                {
+                    quest3Start = true;
+                    quest3Check = true;
 
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
 
-                TextBoxData txtData = hitinfo2.transform.GetComponent<TextBoxData>();
-                TextChange(txtData.id, txtData.isNpc);
+                    TextBoxData txtData = hitinfo2.transform.GetComponent<TextBoxData>();
+                    TextChange(txtData.id, txtData.isNpc);
 
-                ObjScan = false;
-                TextboxActivated = true;
-                interText.gameObject.SetActive(false);
-                scanObject.SetActive(true);
+                    ObjScan = false;
+                    TextboxActivated = true;
+                    interText.gameObject.SetActive(false);
+                    scanObject.SetActive(true);
+
+                }
+                else
+                {
+                    Time.timeScale = 0;
+
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+
+                    TextBoxData txtData = hitinfo2.transform.GetComponent<TextBoxData>();
+                    TextChange(txtData.id, txtData.isNpc);
+
+                    ObjScan = false;
+                    TextboxActivated = true;
+                    interText.gameObject.SetActive(false);
+                    scanObject.SetActive(true);
+                }
             }
         }
     }
@@ -279,23 +302,45 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
             textActivated = false;
             quest1Check = false;
             quest2Check = false;
+            quest3Check = false;
             textIndex = 0;
             questBoxNameText.text = questManager.QuestCheck(id);
             questBoxText.text = questManager.QuestContentsCheck(id);
 
+            if (!quest1Check)
+            {
+                if(quest1 != null)
+                {
+                    Destroy(quest1);
+                }
+                
+            }
+
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                Time.timeScale = 1;
 
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
+                if (quest3Start && !quest3Check)
+                {
+                    ObjScan = false;
+                    MainSceneChanger.GameClearActivated = true;
+                    scanObject.SetActive(false);
+                }
+
+                else
+                {
+                    Time.timeScale = 1;
+
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
 
 
-                isTextDone = false;
-                ObjScan = true;
-                TextboxActivated = false;
-                interText.gameObject.SetActive(false);
-                scanObject.SetActive(false);
+                    isTextDone = false;
+                    ObjScan = true;
+                    TextboxActivated = false;
+                    interText.gameObject.SetActive(false);
+                    scanObject.SetActive(false);
+                }
+
             }
             return;
         }
@@ -327,6 +372,14 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
                 else if (quest2Check)
                 {
                     TextBoxData txtData = quest2.transform.GetComponent<TextBoxData>();
+                    TextChange(txtData.id, txtData.isNpc);
+                }
+                else if (quest3Start)
+                {
+                    Color fadecol = FadeInImage.color;
+                    fadecol.a += 0.3f; 
+                    FadeInImage.color = fadecol;
+                    TextBoxData txtData = hitinfo2.transform.GetComponent<TextBoxData>();
                     TextChange(txtData.id, txtData.isNpc);
                 }
                 else
