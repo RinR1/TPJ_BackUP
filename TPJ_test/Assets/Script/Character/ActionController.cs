@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
     public Text questBoxNameText; // 퀘스트창 제목 텍스트
     public Text questBoxText; // 퀘스트창 내용 텍스트
     public GameObject scanObject; // 텍스트창 백그라운드
+    public GameObject FadeObject;
     public Image FadeInImage; // 페이드 인/아웃
 
     private float rayRange = 3f; //레이 거리조절
@@ -30,6 +32,8 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
     public bool quest3Check = false;
     private bool questboxMoveCheck = false;
     private bool questboxReturnCheck = false;
+    [SerializeField]
+    private bool fadeChangeCheck = false;
 
     private RaycastHit hitinfo; // 충돌체 정보저장
     private RaycastHit hitinfo2; // 충돌체 정보저장
@@ -67,6 +71,7 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
 
     private void Awake()
     {
+        FadeObject.SetActive(false);
         go_Quest.SetActive(false);
     }
 
@@ -83,6 +88,18 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
         TryAction();
         TextBoxChange();
         QuestBoxAppear();
+        EndFadeChange();
+    }
+
+    private void EndFadeChange()
+    {
+        if (fadeChangeCheck)
+        {
+            Color fadecol = FadeInImage.color;
+            float fadechangecol = fadecol.a + 0.3f;
+            fadecol.a = Mathf.Lerp(fadecol.a, fadechangecol, 0.003f);
+            FadeInImage.color = fadecol;
+        }
     }
 
     public void Quest1Action()
@@ -162,6 +179,8 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
             {
                 if(hitinfo2.transform.name == "Robot_Dummy")
                 {
+                    fadeChangeCheck = true;
+                    FadeObject.SetActive(true);
                     quest3Start = true;
                     quest3Check = true;
 
@@ -177,6 +196,7 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
                     scanObject.SetActive(true);
 
                 }
+
                 else
                 {
                     Time.timeScale = 0;
@@ -303,6 +323,7 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
             quest1Check = false;
             quest2Check = false;
             quest3Check = false;
+            fadeChangeCheck = false;
             textIndex = 0;
             questBoxNameText.text = questManager.QuestCheck(id);
             questBoxText.text = questManager.QuestContentsCheck(id);
@@ -321,9 +342,10 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
 
                 if (quest3Start && !quest3Check)
                 {
+                    FadeObject.SetActive(false);
+                    scanObject.SetActive(false);
                     ObjScan = false;
                     MainSceneChanger.GameClearActivated = true;
-                    scanObject.SetActive(false);
                 }
 
                 else
@@ -376,9 +398,6 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
                 }
                 else if (quest3Start)
                 {
-                    Color fadecol = FadeInImage.color;
-                    fadecol.a += 0.3f; 
-                    FadeInImage.color = fadecol;
                     TextBoxData txtData = hitinfo2.transform.GetComponent<TextBoxData>();
                     TextChange(txtData.id, txtData.isNpc);
                 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ public class Status : MonoBehaviour
     [SerializeField]
     private int hp; // 최대체력
     [SerializeField] private int currentHp; //현재 체력
+    private int changeHp;
 
     [SerializeField]
     private int sp; // 최대기력
@@ -49,6 +51,8 @@ public class Status : MonoBehaviour
 
     public bool isActive = true;
 
+    [SerializeField]
+    private bool HpIncreseActive = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,8 +66,9 @@ public class Status : MonoBehaviour
     void Update()
     {   
         GaugeUpdate();
-        
-        if(Time.timeScale != 0)
+        HpChange();
+
+        if (Inventory.InventoryActivated != true && ActionController.TextboxActivated != true && MainSceneChanger.PauseActivated != true && MainSceneChanger.GameClearActivated != true && Status.PlayerDead != true)
         {
             if (isActive)
             {
@@ -71,7 +76,23 @@ public class Status : MonoBehaviour
                 Thirsty();
                 SpRechargingTime();
                 SpRecover();
-            
+            }
+        }
+
+        if (currentHp <= 0)
+        {
+            PlayerDeadActive();
+        }
+    }
+
+    private void HpChange()
+    {
+        if (HpIncreseActive)
+        {
+            currentHp = (int)Mathf.Lerp(currentHp, changeHp, 0.003f);
+            if (currentHp == changeHp)
+            {
+                HpIncreseActive = false;
             }
         }
     }
@@ -145,7 +166,7 @@ public class Status : MonoBehaviour
 
     public void IncreaseHP(int _count)
     {
-        if(currentHp + _count < hp)
+        if (currentHp + _count < hp)
         {
             currentHp += _count;
         }
@@ -157,20 +178,8 @@ public class Status : MonoBehaviour
 
     public void DecreaseHP(int _count)
     {
-        if(currentHp - _count < 0)
-        {
-            currentHp = 0;
-        }
-        else
-        {
-            currentHp -= _count;
-        }
-        
-
-        if(currentHp <= 0)
-        {
-            PlayerDeadActive();
-        }
+        changeHp = currentHp - _count;
+        HpIncreseActive = true;
     }
 
     public void IncreaseMRE(int _count)

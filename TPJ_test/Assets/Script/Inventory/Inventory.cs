@@ -59,14 +59,12 @@ public class Inventory : MonoBehaviour
 
             if (InventoryActivated)
             {
-                Time.timeScale = 0;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 OpenInventory();
             }
             else
             {
-                Time.timeScale = 1;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 slotInfo.HideTooltip();
