@@ -42,10 +42,10 @@ public class Robot : MonoBehaviour
 
     private Vector3 destination;
     public NavMeshAgent nav;
-
     // Start is called before the first frame update
     void Start()
     {
+        Quest2ItemActivated = false;
         currentTime = idleTime;
         actionCheck = true;
         nav = GetComponent<NavMeshAgent>();
@@ -198,22 +198,38 @@ public class Robot : MonoBehaviour
 
     private void RobotDead()
     {
+        capCol.enabled = false;
         walking = false;
         running = false;
         deadCheck = true;
         nav.ResetPath();
         anim.SetTrigger("Dead");
 
-        if(!Quest2ItemActivated)
+        if (!Quest2ItemActivated)
         {
-            int itemDrop = Random.Range(0, 3);
-            if(itemDrop == 1)
+            if(!Robot_ItemDrop.ItemDropActive)
+            {
+                int itemDrop = Random.Range(0, 3);
+                if(itemDrop == 1)
+                {
+                    GameObject Key = Instantiate(keyPrefab);
+                    Key.transform.position = this.transform.position;
+                    QuestBoxManager.Quest2Clear = true;
+                }
+                else
+                {
+                    Robot_ItemDrop.MonsterDead = true;
+                }
+            }
+            else
             {
                 GameObject Key = Instantiate(keyPrefab);
                 Key.transform.position = this.transform.position;
                 QuestBoxManager.Quest2Clear = true;
             }
+ 
         }
+
         Destroy(this.gameObject, 4f);
     }
 }

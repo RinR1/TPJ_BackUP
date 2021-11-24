@@ -3148,7 +3148,7 @@ Transform:
   m_GameObject: {fileID: 6758274714435001902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.19, z: -11.7}
-  m_LocalScale: {x: 1.8, y: 1.7999995, z: 1.7999995}
+  m_LocalScale: {x: 1.7999995, y: 1.7999995, z: 1.7999995}
   m_Children:
   - {fileID: 6764046574091699312}
   - {fileID: 6755755902277555014}
@@ -3235,8 +3235,9 @@ MonoBehaviour:
   capCol: {fileID: 6758274714435001896}
   boxCol: {fileID: 6759491456978078580}
   deadCheck: 0
-  keyPrefab: {fileID: 2532156606422189774, guid: 1112750ef556dd145b27092a88fbd520,
+  keyPrefab: {fileID: 7638246437382705336, guid: 8af96e43d60c75747b8cf85ffaabd8aa,
     type: 3}
+  robItemDrop: {fileID: 0}
   nav: {fileID: 0}
 --- !u!114 &6758274714435001903
 MonoBehaviour:

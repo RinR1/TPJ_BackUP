@@ -25,14 +25,17 @@ public class TextBoxManager : MonoBehaviour
                                          "굳게 잠겨있어서 열지는 못할거같군."});
 
         //퀘스트용 상호작용& 대사
-        TextData.Add(10 + 1000, new string[] {"모래 폭풍이 불 것 같군",
+        TextData.Add(10 + 100, new string[] {"모래 폭풍이 불 것 같군",
                                               "어딘가 몸을 피하는게 좋겠어"});
 
-        TextData.Add(11+ 2000, new string[] {"시청 열쇠인가 본데."});
+        TextData.Add(11+ 200, new string[] {"시청 열쇠인가 본데."});
 
-        TextData.Add(20 + 3000, new string[] {"제법 익숙한 외형이로군.",
-                                              "… 그날이 기억나기도 해",
-                                              "아주 오래전의…"});
+        TextData.Add(20 + 300, new string[] {"무엇…드릴…요…",
+                                             "희미한, 말소리가 들리는군"});
+
+        TextData.Add(30 + 400, new string[] {"제법 익숙한 외형이로군.",
+                                             "… 그날이 기억나기도 해",
+                                             "아주 오래전의…"});
     }
     
     public string GetTalk(int id, int textIndex)

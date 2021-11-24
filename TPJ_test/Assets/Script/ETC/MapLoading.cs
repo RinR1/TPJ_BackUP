@@ -80,7 +80,7 @@ public class MapLoading : MonoBehaviour
             }
             else
             {
-                textbar.SetActive(false);
+
             }
         }
     }

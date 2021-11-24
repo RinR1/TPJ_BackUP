@@ -28,8 +28,10 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
 
     public  bool quest1Check = false;
     private bool quest2Check = false;
-    public bool quest3Start = false;
-    public bool quest3Check = false;
+    private bool quest3Start = false;
+    private bool quest3Check = false;
+    public bool quest4Start = false;
+    public bool quest4Check = false;
     private bool questboxMoveCheck = false;
     private bool questboxReturnCheck = false;
     [SerializeField]
@@ -41,8 +43,8 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
     public int textIndex;
     private int QuestDelayTime = 500;
 
-    Vector3 QuestShowPos = new Vector3(0, 0, 0);
-    Vector3 QuestHidePos = new Vector3(-423, 0, 0);
+    Vector3 QuestShowPos = new Vector3(0, 77, 0);
+    Vector3 QuestHidePos = new Vector3(-423, 77, 0);
 
     // 필요 컴포넌트
     [SerializeField]
@@ -65,12 +67,15 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
     private GameObject quest1;
     [SerializeField]
     private GameObject quest2;
+    [SerializeField]
+    private GameObject quest3;
 
     public Item item; // 아이템 정보
     // Update is called once per frame
 
     private void Awake()
     {
+        TextboxActivated = false;
         FadeObject.SetActive(false);
         go_Quest.SetActive(false);
     }
@@ -97,7 +102,7 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
         {
             Color fadecol = FadeInImage.color;
             float fadechangecol = fadecol.a + 0.3f;
-            fadecol.a = Mathf.Lerp(fadecol.a, fadechangecol, 0.003f);
+            fadecol.a = Mathf.Lerp(fadecol.a, fadechangecol, 0.005f);
             FadeInImage.color = fadecol;
         }
     }
@@ -131,6 +136,28 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
         Cursor.lockState = CursorLockMode.None;
 
         TextBoxData txtData = quest2.transform.GetComponent<TextBoxData>();
+        TextChange(txtData.id, txtData.isNpc);
+
+        ObjScan = false;
+        textActivated = true;
+        TextboxActivated = true;
+        interText.gameObject.SetActive(false);
+        scanObject.SetActive(true);
+    }
+
+    public void Quest3Action()
+    {
+        quest3 = GameObject.Find("Quest3_Start");
+
+        quest3Start = true;
+        quest3Check = true;
+
+        Time.timeScale = 0;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        TextBoxData txtData = quest3.transform.GetComponent<TextBoxData>();
         TextChange(txtData.id, txtData.isNpc);
 
         ObjScan = false;
@@ -177,12 +204,12 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
         {
             if (hitinfo2.transform != null)
             {
-                if(hitinfo2.transform.name == "Robot_Dummy")
+                if(hitinfo2.transform.name == "Robet_pet")
                 {
                     fadeChangeCheck = true;
                     FadeObject.SetActive(true);
-                    quest3Start = true;
-                    quest3Check = true;
+                    quest4Start = true;
+                    quest4Check = true;
 
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
@@ -194,7 +221,6 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
                     TextboxActivated = true;
                     interText.gameObject.SetActive(false);
                     scanObject.SetActive(true);
-
                 }
 
                 else
@@ -320,29 +346,43 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
         {
             isTextDone = true;
             textActivated = false;
-            quest1Check = false;
-            quest2Check = false;
-            quest3Check = false;
+
+            if(quest1Check)
+                quest1Check = false;
+            if (quest2Check)
+                quest2Check = false;
+            if (quest3Check)
+                quest3Check = false;
+            if (quest4Check)
+                quest4Check = false;
             fadeChangeCheck = false;
             textIndex = 0;
+
             questBoxNameText.text = questManager.QuestCheck(id);
             questBoxText.text = questManager.QuestContentsCheck(id);
 
-            if (!quest1Check)
-            {
-                if(quest1 != null)
-                {
-                    Destroy(quest1);
-                }
-                
-            }
-
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
+                if (!quest1Check)
+                {
+                    if (quest1 != null)
+                    {
+                        quest1.SetActive(false);
+                    }
+
+                }
 
                 if (quest3Start && !quest3Check)
                 {
-                    FadeObject.SetActive(false);
+                    if (quest3 != null)
+                    {
+                        questManager.questId = 30;
+                        quest3.SetActive(false);
+                    }
+                }
+
+                if (quest4Start && !quest4Check)
+                {
                     scanObject.SetActive(false);
                     ObjScan = false;
                     MainSceneChanger.GameClearActivated = true;
@@ -396,7 +436,12 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
                     TextBoxData txtData = quest2.transform.GetComponent<TextBoxData>();
                     TextChange(txtData.id, txtData.isNpc);
                 }
-                else if (quest3Start)
+                else if (quest3Check)
+                {
+                    TextBoxData txtData = quest3.transform.GetComponent<TextBoxData>();
+                    TextChange(txtData.id, txtData.isNpc);
+                }
+                else if (quest4Start)
                 {
                     TextBoxData txtData = hitinfo2.transform.GetComponent<TextBoxData>();
                     TextChange(txtData.id, txtData.isNpc);

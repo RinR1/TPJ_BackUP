@@ -42,6 +42,7 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InventoryActivated = false;
         slots = go_SlotParent.GetComponentsInChildren<ItemSlot>();
     }
 
@@ -59,12 +60,14 @@ public class Inventory : MonoBehaviour
 
             if (InventoryActivated)
             {
+                Time.timeScale = 0;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 OpenInventory();
             }
             else
             {
+                Time.timeScale = 1;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 slotInfo.HideTooltip();

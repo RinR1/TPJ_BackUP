@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     public bool crouchCheck = false; // 앉기상태 체크
     private bool jumpCheck = true; // 지면과의 접촉 체크
 
+    [SerializeField]
+    private Animator gunAnim;
+
     //이동상태 체크용 변수
     private Vector3 lastPos;
 
@@ -185,6 +188,7 @@ public class PlayerController : MonoBehaviour
 
         if (crouchCheck)
         {
+            gunAnim.SetBool("Move", false);
             applySpeed = crouchSpeed;
             applyCrouchPosY = crouchPosY;
         }
@@ -234,10 +238,12 @@ public class PlayerController : MonoBehaviour
         {
             if (_velocity != Vector3.zero)
             {
+                gunAnim.SetBool("Move", true);
                 walkCheck = true;
             }
             else
             {
+                gunAnim.SetBool("Move", false);
                 walkCheck = false;
             }
             cro_mine.WalkingAnimation(walkCheck);

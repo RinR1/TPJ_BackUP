@@ -42,6 +42,9 @@ public class GunController : MonoBehaviour
     public bool isRebound = false;
 
     public float camrecoil;
+
+    [SerializeField]
+    private Animator gunAnim;
     // Start is called before the first frame update
     void Start()
     {
@@ -193,6 +196,7 @@ public class GunController : MonoBehaviour
     {
         if(Input.GetButtonDown("Fire2") && !reloadCheck)
         {
+            gunAnim.SetBool("Move", false);
             FineSight();
         }
     }

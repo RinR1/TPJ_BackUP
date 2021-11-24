@@ -17,7 +17,7 @@ MonoBehaviour:
     \n\uC774\uAC8C \uC788\uC73C\uBA74 \uC11C\uC6B8\uC2DC\uCCAD \uB0B4\uBD80\uB85C
     \uB4E4\uC5B4\uAC08\uC218 \uC788\uC744\uAC83\uAC19\uB2E4."
   itemType: 4
-  itemImage: {fileID: 0}
+  itemImage: {fileID: 21300000, guid: e25abf91ea7e6d142b4904b7e8f18d65, type: 3}
   itemPrefab: {fileID: 2532156606422189774, guid: 1112750ef556dd145b27092a88fbd520,
     type: 3}
   weaponType: 
