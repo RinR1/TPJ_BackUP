@@ -27,7 +27,7 @@ public class Robot : MonoBehaviour
     [SerializeField] private Status status;
     [SerializeField] private Rigidbody rigid;
     [SerializeField] private CapsuleCollider capCol;
-    [SerializeField] private BoxCollider boxCol;
+    [SerializeField] private Collider weaponCol;
 
     private float currentTime;
 
@@ -54,15 +54,18 @@ public class Robot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!deadCheck)
+        if(Inventory.InventoryActivated != true && ActionController.TextboxActivated != true && MainSceneChanger.PauseActivated != true && MainSceneChanger.GameClearActivated != true && Status.PlayerDead != true)
         {
-            Move();
-            TimeCheck();
-        }
+            if (!deadCheck)
+            {
+                Move();
+                TimeCheck();
+            }
 
-        if (damageCheck)
-        {
-            RobotHitChase();
+            if (damageCheck)
+            {
+                RobotHitChase();
+            }
         }
     }
 
@@ -152,10 +155,10 @@ public class Robot : MonoBehaviour
         anim.SetTrigger("Close Attack");
 
         yield return new WaitForSeconds(attackDelayA);
-        boxCol.enabled = true; // 히트박스 활성화
+        weaponCol.enabled = true; // 히트박스 활성화
 
         yield return new WaitForSeconds(attackDelayB);
-        boxCol.enabled = false; // 히트박스 비활성화
+        weaponCol.enabled = false; // 히트박스 비활성화
 
         yield return new WaitForSeconds(attackDelay - attackDelayA - attackDelayB);
         attackCheck = false;
@@ -209,7 +212,7 @@ public class Robot : MonoBehaviour
         {
             if(!Robot_ItemDrop.ItemDropActive)
             {
-                int itemDrop = Random.Range(0, 3);
+                int itemDrop = Random.Range(0, 5);
                 if(itemDrop == 1)
                 {
                     GameObject Key = Instantiate(keyPrefab);

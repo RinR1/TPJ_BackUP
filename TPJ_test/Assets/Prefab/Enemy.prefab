@@ -1477,7 +1477,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6757854755345741460}
-  m_LocalRotation: {x: -0.029303638, y: -0.6961315, z: 0.03016868, w: 0.7166813}
+  m_LocalRotation: {x: -0.029303659, y: -0.6961315, z: 0.03016867, w: 0.7166813}
   m_LocalPosition: {x: 0.0030020282, y: -0.06577787, z: -0.09717519}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3233,11 +3233,10 @@ MonoBehaviour:
   status: {fileID: 0}
   rigid: {fileID: 6758274714435001897}
   capCol: {fileID: 6758274714435001896}
-  boxCol: {fileID: 6759491456978078580}
+  weaponCol: {fileID: 6759491456978078580}
   deadCheck: 0
   keyPrefab: {fileID: 7638246437382705336, guid: 8af96e43d60c75747b8cf85ffaabd8aa,
     type: 3}
-  robItemDrop: {fileID: 0}
   nav: {fileID: 0}
 --- !u!114 &6758274714435001903
 MonoBehaviour:

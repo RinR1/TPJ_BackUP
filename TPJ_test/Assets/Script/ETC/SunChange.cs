@@ -23,32 +23,35 @@ public class SunChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.right, 0.07f * realtimeAndSecond * Time.deltaTime);
+        if(Inventory.InventoryActivated != true && ActionController.TextboxActivated != true && MainSceneChanger.PauseActivated != true && MainSceneChanger.GameClearActivated != true && Status.PlayerDead != true)
+        {
+            transform.Rotate(Vector3.right, 0.07f * realtimeAndSecond * Time.deltaTime);
 
-        if(transform.eulerAngles.x >= 170)
-        {
-            nightCheck = true;
-        }
-        else if(transform.eulerAngles.x <= 340)
-        {
-            nightCheck = false;
-        }
-
-        if (nightCheck)
-        {
-            if (currentFogDensity <= nightFogDensity)
+            if(transform.eulerAngles.x >= 170)
             {
-                currentFogDensity += 0.07f * fogDensityCal * Time.deltaTime;
-                RenderSettings.fogDensity = currentFogDensity;
+                nightCheck = true;
+            }
+            else if(transform.eulerAngles.x <= 340)
+            {
+                nightCheck = false;
             }
 
-        }
-        else
-        {
-            if (currentFogDensity >= dayFogDensity)
+            if (nightCheck)
             {
-                currentFogDensity -= 0.07f * fogDensityCal * Time.deltaTime;
-                RenderSettings.fogDensity = currentFogDensity;
+                if (currentFogDensity <= nightFogDensity)
+                {
+                    currentFogDensity += 0.07f * fogDensityCal * Time.deltaTime;
+                    RenderSettings.fogDensity = currentFogDensity;
+                }
+
+            }
+            else
+            {
+                if (currentFogDensity >= dayFogDensity)
+                {
+                    currentFogDensity -= 0.07f * fogDensityCal * Time.deltaTime;
+                    RenderSettings.fogDensity = currentFogDensity;
+                }
             }
         }
     }

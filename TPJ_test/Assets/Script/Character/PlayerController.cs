@@ -230,9 +230,9 @@ public class PlayerController : MonoBehaviour
         Vector3 _moveHorizontal = transform.right * _moveDirX; // 좌우 이동방향 체크
         Vector3 _moveVertical = transform.forward * _moveDirZ; // 앞뒤 이동방향 체크
 
-        Vector3 _velocity = (_moveHorizontal + _moveVertical).normalized * applySpeed;
+        Vector3 _velocity = (_moveHorizontal + _moveVertical).normalized * applySpeed * Time.deltaTime;
 
-        m_rigid.MovePosition(transform.position + _velocity * Time.deltaTime);
+        m_rigid.MovePosition(transform.position + _velocity);
 
         if (!runCheck && !crouchCheck && jumpCheck)
         {

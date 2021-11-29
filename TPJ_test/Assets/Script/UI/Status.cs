@@ -56,6 +56,7 @@ public class Status : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerDead = false;
         currentHp = hp;
         currentSp = sp;
         currentWater = water;

@@ -45,7 +45,7 @@ public class MainSceneChanger : MonoBehaviour
 
             if (PauseActivated)
             {
-                Time.timeScale = 0;
+                //Time.timeScale = 0;
 
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
@@ -53,7 +53,7 @@ public class MainSceneChanger : MonoBehaviour
             }
             else
             {
-                Time.timeScale = 1;
+                //Time.timeScale = 1;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 go_PauseMenu.SetActive(false);
@@ -74,8 +74,6 @@ public class MainSceneChanger : MonoBehaviour
     {
         if(Status.PlayerDead == true)
         {
-            Time.timeScale = 0;
-
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             go_GameOver.SetActive(true);

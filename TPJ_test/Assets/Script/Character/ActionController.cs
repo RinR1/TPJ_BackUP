@@ -34,6 +34,9 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
     public bool quest4Check = false;
     private bool questboxMoveCheck = false;
     private bool questboxReturnCheck = false;
+
+    private bool keyToolTipActivated = false;
+
     [SerializeField]
     private bool fadeChangeCheck = false;
 
@@ -43,8 +46,11 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
     public int textIndex;
     private int QuestDelayTime = 500;
 
-    Vector3 QuestShowPos = new Vector3(0, 77, 0);
-    Vector3 QuestHidePos = new Vector3(-423, 77, 0);
+    int i_width = Screen.width;
+    int i_height = Screen.height;
+
+    Vector3 QuestShowPos;
+    Vector3 QuestHidePos;
 
     // 필요 컴포넌트
     [SerializeField]
@@ -59,6 +65,8 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
     private Inventory inventory;
     [SerializeField]
     private Image pickImage;
+    [SerializeField]
+    private GameObject tooltip;
     [SerializeField]
     private Image pickItemImage;
     [SerializeField]
@@ -78,6 +86,18 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
         TextboxActivated = false;
         FadeObject.SetActive(false);
         go_Quest.SetActive(false);
+
+
+        if (i_width == 1920 && i_height == 1080)
+        {
+            QuestShowPos = new Vector3(-780, 420, 0);
+            QuestHidePos = new Vector3(-1220, 420, 0);
+        }
+        if (i_width == 2560 && i_height == 1080)
+        {
+            QuestShowPos = new Vector3(-1100, 420, 0);
+            QuestHidePos = new Vector3(-1540, 420, 0);
+        }
     }
 
     private void Start()
@@ -94,6 +114,23 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
         TextBoxChange();
         QuestBoxAppear();
         EndFadeChange();
+        ShowKeyTooltip();
+    }
+
+    private void ShowKeyTooltip()
+    {
+        if (Input.GetKeyDown(KeyCode.F1) && Inventory.InventoryActivated != true && TextboxActivated != true && MainSceneChanger.PauseActivated != true  && MainSceneChanger.GameClearActivated != true && Status.PlayerDead != true)
+        {
+            keyToolTipActivated = !keyToolTipActivated;
+            if (keyToolTipActivated)
+            {
+                tooltip.SetActive(true);
+            }
+            else
+            {
+                tooltip.SetActive(false);
+            }
+        }
     }
 
     private void EndFadeChange()
@@ -169,7 +206,7 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
 
     private void TryAction()
     {
-        if(Time.timeScale == 1)
+        if(Inventory.InventoryActivated != true && ActionController.TextboxActivated != true && MainSceneChanger.PauseActivated != true && MainSceneChanger.GameClearActivated != true && Status.PlayerDead != true)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -319,7 +356,7 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
                 }
             }
 
-            if (go_Quest.transform.localPosition.x >= -1f)
+            if (go_Quest.transform.localPosition.x >= QuestShowPos.x + 1)
             {
                 go_Quest.transform.localPosition = QuestShowPos;
             }
@@ -328,7 +365,7 @@ public class ActionController : MonoBehaviour // (21/10/26 주석 및 코드수�
         else if (questboxReturnCheck)
         {
             go_Quest.transform.localPosition = Vector3.Lerp(go_Quest.transform.localPosition, QuestHidePos, 0.02f);
-            if (go_Quest.transform.localPosition.x <= -422f)
+            if (go_Quest.transform.localPosition.x <= QuestHidePos.x + 1)
             {
                 go_Quest.transform.localPosition = QuestHidePos;
                 QuestDelayTime = 500;

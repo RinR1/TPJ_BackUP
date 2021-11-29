@@ -40,7 +40,7 @@ public class TitleSceneChanger : MonoBehaviour
 
     public void LoadGameButton()
     {
-        StartCoroutine(LoadCoroutine());
+        //StartCoroutine(LoadCoroutine());
     }
 
     IEnumerator LoadCoroutine()
