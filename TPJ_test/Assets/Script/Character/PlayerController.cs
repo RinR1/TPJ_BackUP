@@ -65,7 +65,8 @@ public class PlayerController : MonoBehaviour
     public float testcoil;
     private void Awake()
     {
-        if(FindObjectsOfType<PlayerController>().Length != 1)
+        Application.targetFrameRate = 200;
+        if (FindObjectsOfType<PlayerController>().Length != 1)
         {
             Destroy(gameObject);
         }
